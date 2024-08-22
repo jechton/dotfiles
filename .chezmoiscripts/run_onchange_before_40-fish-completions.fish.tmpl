@@ -1,0 +1,96 @@
+#!/usr/bin/env fish
+
+# TODO: figure out why this doesn't work as a template??
+
+function log_red
+  set_color red
+  echo "$argv"
+  set_color normal
+end
+
+function log_blue
+  set_color blue
+  echo "$argv"
+  set_color normal
+end
+
+function log_green
+  set_color green
+  echo "$argv"
+  set_color normal
+end
+
+function log_yellow
+  set_color yellow
+  echo "$argv"
+  set_color normal
+end
+
+function log_task
+  log_blue "🔃" "$argv"
+end
+
+function log_manual_action
+  log_red "⚠️" "$argv"
+end
+
+function log_c
+  log_yellow "👉" "$argv"
+end
+
+function c
+  log_c "$argv"
+  "$argv"
+end
+
+function c_exec
+  log_c "$argv"
+  exec "$argv"
+end
+
+function log_error
+  log_red "❌" "$argv"
+end
+
+function log_info
+  log_blue "ℹ️" "$argv"
+end
+
+function error
+  log_error "$argv"
+  exit 1
+end
+
+log_task "Setting up fish completions"
+
+mkdir -p $__fish_config_dir/completions
+
+if type -q chezmoi
+    log_c "Chezmoi completion"
+    chezmoi completion fish --output=$__fish_config_dir/completions/chezmoi.fish
+end
+
+if type -q bat
+    log_c "Bat completion"
+    curl --silent --show-error "https://raw.githubusercontent.com/sharkdp/bat/master/assets/completions/bat.fish.in" >$__fish_config_dir/completions/bat.fish
+end
+
+if type -q gh
+    log_c "Github completion"
+    gh completion -s fish >> $__fish_config_dir/completions/gh.fish
+end
+
+if type -q cht.sh
+    log_c "cht.sh completion"
+    echo "complete -c cht.sh -xa '(curl -s cheat.sh/:list)'" >$__fish_config_dir/completions/cht.sh.fish
+end
+
+if type -q chezmoi_modify_manager
+    log_c "chezmoi_modify_manager completion"
+    chezmoi_modify_manager --bpaf-complete-style-fish >$__fish_config_dir/completions/chezmoi_modify_manager.fish
+end
+
+# {{ if .blue -}}
+log_c "ujust completion"
+ujust --completions fish | sed 's/\bjust\b/ujust/g' | sed s/_just/_ujust/g >$__fish_config_dir/completions/ujust.fish
+# {{- end }}

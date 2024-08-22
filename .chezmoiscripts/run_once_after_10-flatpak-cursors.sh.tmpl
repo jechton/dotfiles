@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# {{- if eq .chezmoi.os "linux" -}}
+
+# {{ template "scripts-library" }}
+
+# The following line is for ShellCheck to correctly identify the above include
+true || source ../.chezmoitemplates/scripts-library
+
+set -eufo pipefail
+
+log_task "Fixing flatpak cursors"
+
+flatpak --user override --filesystem=~/.local/share/icons/:ro
+flatpak --user override --env=XCURSOR_PATH=~/.local/share/icons
+# {{- end -}}

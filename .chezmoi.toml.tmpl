@@ -1,0 +1,43 @@
+{{- $device_type := "desktop" -}}
+{{- if eq .chezmoi.os "linux" -}}
+{{-     if eq (output "hostnamectl" "--json=short" | mustFromJson).Chassis "laptop" "convertible" -}}
+{{-       $device_type = "laptop" -}}
+{{-     end -}}
+{{- else if eq .chezmoi.os "android" -}}
+{{-   $device_type = "phone" -}}
+{{- end -}}
+
+{{- $osID := .chezmoi.os -}}
+{{- if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.osRelease "id")) -}}
+{{-   $osID = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
+{{- $blue := false -}}
+{{- if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.osRelease "variantID")) -}}
+{{-   if (or (.chezmoi.osRelease.variantID | lower | contains "bazzite") (.chezmoi.osRelease.variantID | lower | contains "bluefin")) }}
+{{-     $blue = true -}}
+{{-   end -}}
+{{- end -}}
+
+encryption = "gpg"
+color = "on"
+pager = "less"
+
+[diff]
+exclude = ["scripts"]
+pager = "delta --syntax-theme=ansi"
+
+[edit]
+command = "nvim"
+
+[status]
+exclude = ["scripts"]
+
+[data]
+osID = {{ $osID | quote }}
+blue = {{ $blue }}
+de = {{ (env "XDG_CURRENT_DESKTOP" | trim | lower | quote) }}
+device_type = {{ $device_type | lower | quote }}
+
+[github]
+refreshPeriod = "12h"

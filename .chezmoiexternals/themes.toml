@@ -1,0 +1,6 @@
+{{ if eq .chezmoi.os "android" -}}
+[".termux/colors.properties"]
+type = "file"
+url = "https://raw.githubusercontent.com/catppuccin/termux/main/Frappe/colors.properties"
+refreshPeriod = "168h"
+{{- end }}

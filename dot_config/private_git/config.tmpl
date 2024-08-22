@@ -1,0 +1,73 @@
+[include]
+path = alias
+path = color
+
+[user]
+name = Jeremiah
+email = 44993244+jechton@users.noreply.github.com
+signingkey = A3CDF54A061F188F
+
+{{$ghPath := lookPath "gh" -}}
+{{- if $ghPath -}}
+[credential "https://github.com"]
+helper = !{{ $ghPath }} auth git-credential
+[credential "https://gist.github.com"]
+helper = !{{ $ghPath }} auth git-credential
+{{- end }}
+[credential]
+helper = cache --timeout 21600 # six hours
+helper = oauth
+
+[init]
+defaultBranch = "main"
+
+[help]
+autocorrect = immediate
+
+[core]
+pager = delta --syntax-theme=ansi
+
+[fetch]
+prune = true
+
+[pull]
+rebase = true
+
+[commit]
+verbose = true
+gpgsign = true
+
+[absorb]
+maxStack=100
+
+[push]
+default = current
+autoSetupRemote = true
+
+[merge]
+conflictstyle = zdiff3
+
+[rebase]
+autostash = true
+autosquash = true
+updateRefs = true
+missingCommitsCheck = error
+
+[rerere]
+enabled = true
+
+[sequence]
+editor = interactive-rebase-tool
+
+[interactive]
+diffFilter = delta --color-only --syntax-theme=ansi
+
+[delta]
+navigate = true
+
+[diff]
+algorithm = histogram
+colorMoved = default
+colorMovedWS = allow-indentation-change
+
+{{- /* vim: set filetype=gitconfig: */ -}}

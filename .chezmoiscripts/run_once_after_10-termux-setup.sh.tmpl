@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# {{ if eq .chezmoi.os "android" -}}
+set -e
+
+# Don't sleep during setup
+termux-wake-lock
+
+if ! [ -d "${HOME}/storage" ]; then
+	termux-setup-storage
+fi
+
+termux-wake-unlock
+# {{- end }}

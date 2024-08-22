@@ -1,0 +1,20 @@
+README.md
+LICENSE
+.config/Code
+.config/fish/{conf.d,completions,fish_variables,functions}
+**/*.src.ini
+
+{{ if eq .chezmoi.os "android" }}
+.config/fish/custom_functions.d/note.fish
+.config/no-show-user-motd
+{{ end }}
+
+{{ if ne .chezmoi.os "android" }}
+.termux
+{{ end }}
+
+{{ if ne .de "kde" }}
+.config/kscreenlockerrc
+.config/kglobalshortcutsrc
+.config/kxkbrc
+{{ end }}

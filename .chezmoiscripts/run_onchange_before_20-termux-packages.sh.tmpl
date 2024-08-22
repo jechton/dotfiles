@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# {{- if eq .chezmoi.os "android" -}}
+
+# {{ template "scripts-library" }}
+
+# The following line is for ShellCheck to correctly identify the above include
+true || source ../.chezmoitemplates/scripts-library
+
+set -eufo pipefail
+
+log_task "Installing packages"
+
+c pkg upgrade -y
+
+# {{ range .packages.termux -}}
+# shellcheck disable=SC1083
+c pkg install -y {{ . | quote }}
+# {{ end -}}
+
+c pkg autoclean
+c pkg clean
+
+# {{- end -}}

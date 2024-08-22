@@ -1,0 +1,26 @@
+{{- if eq .chezmoi.os "linux" -}}
+{{-   range (list
+      "JetBrainsMono"
+      "NerdFontsSymbolsOnly") }}
+[".local/share/fonts/{{ . }}"]
+    type = "archive"
+    url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ . }}.tar.xz"
+    exact = true
+    refreshPeriod = "168h"
+    include = ["**/*.otf", "**/*.ttf"]
+{{-   end }}
+[".local/share/fonts/Inter"]
+    type = "archive"
+    url = "https://github.com/rsms/inter/releases/latest/download/Inter-{{ (gitHubLatestRelease "rsms/inter").TagName | trimPrefix "v" }}.zip"
+    exact = true
+    refreshPeriod = "168h"
+    include = ["*.ttf"]
+{{- end}}
+
+{{ if eq .chezmoi.os "android" -}}
+[".termux/font.ttf"]
+    type = "archive-file"
+    url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Iosevka.tar.xz"
+    path = "IosevkaNerdFont-Regular.ttf"
+    refreshPeriod = "168h"
+{{- end }}

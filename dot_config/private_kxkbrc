@@ -1,0 +1,7 @@
+[Layout]
+DisplayNames=,
+LayoutList=us,us
+Options=shift:both_capslock_cancel,grp_led:scroll,caps:backspace,grp:alts_toggle
+ResetOldOptions=true
+Use=true
+VariantList=colemak,

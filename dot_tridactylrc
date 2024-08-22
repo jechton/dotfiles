@@ -1,0 +1,43 @@
+" Colorscheme
+colourscheme --url https://github.com/jrolfs/gruvbox-material-tridactyl/releases/latest/download/dark-soft.css gruvbox-material-dark-soft
+
+" General Settings
+set newtab https://jechton.github.io/lab-startpage
+set newtabfocus page
+set modeindicator false
+set smoothscroll true
+set hintfiltermode vimperator-reflow
+set hintnames numeric
+
+" Binds
+bind l tabnext
+bind h tabprev
+" Follow promising-looking links to visit the likely next and previous pages of content.
+bind gh followpage prev
+bind gl followpage next
+" Reduce scroll length
+bind j scrollline 5
+bind k scrollline -5
+bind nn composite get_current_url | exclaim ~/.scripts/obsidian-link-save.sh
+bind ZZ composite sanitise tridactyllocal; qall
+
+" Autocmds
+" Example of redirects
+" autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old")
+
+# Search URLs
+set searchurls.sr https://www.reddit.com/r/%s
+set searchurls.r https://www.reddit.com/search?q=%s
+set searchurls.gh https://github.com/search?q=%s
+set searchurls.ym https://music.youtube.com/search?q=%s
+" Search current site using Startpage: tabopen c my search` on Reddit uses query "my search site:reddit.com".
+set jsurls.c query => `https://startpage.com/search?q=${query} site:${location.hostname}`
+
+" Blacklist
+blacklistadd 127.0.0.1
+blacklistadd localhost
+blacklistadd monkeytype.com
+blacklistadd photopea.com
+blacklistadd duolingo.com
+
+" vim: set filetype=tridactyl

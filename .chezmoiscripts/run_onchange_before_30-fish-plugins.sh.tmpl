@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# {{ template "scripts-library" }}
+
+# The following line is for ShellCheck to correctly identify the above include
+true || source ../.chezmoitemplates/scripts-library
+
+if [ ! -f "$HOME/.config/fish/functions/fisher.fish" ]; then
+    log_task "Installing fisher"
+    c fish -c "curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher"
+fi
+
+# This script will run whenever there's an update in .config/fish/fish_plugins
+# .config/fish/fish_plugins hash: {{ include "dot_config/private_fish/fish_plugins.tmpl" | sha256sum }}
+
+log_task "Updating fish plugins"
+c fish -c "fisher update"
+
+log_task "Configuring prompt"
+fish -c "tide configure --auto --style=Lean --prompt_colors='16 colors' --show_time=No --lean_prompt_height='Two lines' --prompt_connection=Dotted --prompt_spacing=Sparse --icons='Many icons' --transient=Yes"
+

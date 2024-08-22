@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# {{- if .blue -}}
+
+# {{ template "scripts-library" }}
+
+# The following line is for ShellCheck to correctly identify the above include
+true || source ../.chezmoitemplates/scripts-library
+
+set -eufo pipefail
+
+log_task "Installing flatpaks"
+
+# {{ range .packages.flatpak -}}
+# shellcheck disable=SC1083
+c flatpak install --noninteractive --system {{ . | quote }}
+# {{ end -}}
+
+# {{- end -}}

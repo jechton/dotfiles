@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# {{- if eq .chezmoi.os "linux" -}}
+
+set -eufo pipefail
+
+if flatpak list | grep -q 'librewolf'; then
+	curl \
+		https://gitlab.com/librewolf-community/browser/common/-/raw/master/helpers/tridactyl-install.sh \
+		>/tmp/tridactyl-install.sh
+	sed -i \
+		's/\.librewolf/\.var\/app\/io\.gitlab\.librewolf-community\/\.librewolf/g' \
+		/tmp/tridactyl-install.sh
+	chmod +x /tmp/tridactyl-install.sh
+	/tmp/tridactyl-install.sh
+
+	flatpak --user override io.gitlab.librewolf-community --filesystem="${XDG_DATA_HOME:-~}"/.tridactylrc
+	flatpak --user override io.gitlab.librewolf-community --filesystem="${XDG_DATA_HOME:-~/.local/share}"/tridactyl
+	flatpak --user override io.gitlab.librewolf-community --filesystem="${XDG_DATA_HOME:-~}"/.scripts
+	flatpak --user override io.gitlab.librewolf-community --filesystem="${XDG_DATA_HOME:-~}"/Obsidian
+fi
+# {{- end -}}

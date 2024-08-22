@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# {{- if .blue -}}
+
+set -eufo pipefail
+
+if [ ! -e "{{ .chezmoi.homeDir }}/.local/bin/ld" ]; then
+  ln -s "$(brew --prefix binutils)"/bin/ld ~/.local/bin
+fi
+# {{- end -}}

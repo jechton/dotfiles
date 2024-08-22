@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# {{- if eq .de "gnome" -}}
+# hash to update on new release: {{ (gitHubLatestRelease "rafaelmardojai/firefox-gnome-theme").TagName | sha256sum }}
+
+curl -s -o- https://raw.githubusercontent.com/rafaelmardojai/firefox-gnome-theme/master/scripts/install-by-curl.sh | bash
+# {{- end -}}

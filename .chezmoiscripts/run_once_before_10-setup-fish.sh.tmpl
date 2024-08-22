@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# {{ template "scripts-library" }}
+
+# The following line is for ShellCheck to correctly identify the above include
+true || source ../.chezmoitemplates/scripts-library
+
+if ! command -v fish &>/dev/null; then
+	log_task "Installing fish"
+	if command -v pkg >/dev/null; then
+		c pkg install -y fish
+	elif command -v brew >/dev/null; then
+		c brew install -q fish
+	fi
+fi
+
+if command -v fish &>/dev/null && [ "$SHELL" != "$(which fish)" ]; then
+	log_task "Making fish the default shell"
+	c chsh -s fish
+fi

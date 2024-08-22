@@ -1,0 +1,22 @@
+{{- if eq .de "kde" -}}
+[".local/share/icons/Capitaine Cursors (Gruvbox)"]
+type = "archive"
+url = "https://github.com/sainnhe/capitaine-cursors/releases/latest/download/Linux.zip"
+exact = true
+stripComponents = 1
+refreshPeriod = "168h"
+include = ["Capitaine Cursors (Gruvbox)/**"]
+{{- end }}
+{{- if eq .de "gnome" -}}
+[".local/share/icons/Bibata Modern Classic"]
+type = "archive"
+url = "https://github.com/ful1e5/Bibata_Cursor/releases/latest/download/Bibata-Modern-Classic.tar.xz"
+exact = true
+stripComponents = 1
+refreshPeriod = "168h"
+
+[".local/share/icons/morewaita"]
+url = "https://github.com/somepaulo/morewaita"
+type = "git-repo"
+refreshPeriod = "168h"
+{{- end}}
