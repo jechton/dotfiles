@@ -7,7 +7,7 @@
     url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ . }}.tar.xz"
     exact = true
     refreshPeriod = "168h"
-    include = ["**/*.otf", "**/*.ttf"]
+    include = ["SymbolsNerdFont*", "JetBrainsMonoNerdFont-*"]
 {{-   end }}
 [".local/share/fonts/Inter"]
     type = "archive"
@@ -15,6 +15,13 @@
     exact = true
     refreshPeriod = "168h"
     include = ["*.ttf"]
+[".local/share/fonts/CascadiaCode"]
+    type = "archive"
+    url = "https://github.com/microsoft/cascadia-code/releases/latest/download/CascadiaCode-{{ (gitHubLatestRelease "microsoft/cascadia-code").TagName | trimPrefix "v" }}.zip"
+    stripComponents = 1
+    exact = true
+    refreshPeriod = "168h"
+    include = ["ttf/CascadiaCodeNF*"]
 {{- end}}
 
 {{ if eq .chezmoi.os "android" -}}
