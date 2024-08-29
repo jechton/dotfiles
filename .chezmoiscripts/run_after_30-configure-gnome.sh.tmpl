@@ -35,4 +35,9 @@ gsettings_ensure org.gnome.Ptyxis font-name "Cascadia Code NF 12"
 gsettings_ensure org.gnome.desktop.interface icon-theme "morewaita"
 gsettings_ensure org.gnome.desktop.interface color-scheme "prefer-dark"
 gsettings_ensure org.gnome.desktop.interface cursor-theme "Bibata Modern Classic"
+
+gsettings_ensure org.gnome.settings-daemon.plugins.color night-light-enabled true
+gsettings_ensure org.gnome.desktop.peripherals.mouse accel-profile "flat"
+
+dconf write /org/gnome/shell/favorite-apps "['io.github.zen_browser.zen.desktop', 'org.gnome.Nautilus.desktop', 'md.obsidian.Obsidian.desktop']"
 # {{- end -}}
