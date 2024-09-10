@@ -19,7 +19,6 @@ packages:
     - "rclone"
     - "ripgrep"
     - "tealdeer"
-    - "thefuck"
     - "ugrep"
     - "yq"
     - "zoxide"
