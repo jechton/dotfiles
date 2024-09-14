@@ -8,7 +8,6 @@ packages:
     - "fd"
     - "fzf"
     - "gh"
-    - "git-credential-oauth"
     - "git-delta"
     - "git-interactive-rebase-tool"
     - "lazygit"
