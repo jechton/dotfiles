@@ -39,5 +39,7 @@ blacklistadd localhost
 blacklistadd monkeytype.com
 blacklistadd photopea.com
 blacklistadd duolingo.com
+blacklistadd acrobat.adobe.com
+blacklistadd documentcloud.adobe.com
 
 " vim: set filetype=tridactyl
