@@ -2,7 +2,7 @@
 colourscheme --url https://github.com/jrolfs/gruvbox-material-tridactyl/releases/latest/download/dark-soft.css gruvbox-material-dark-soft
 
 " General Settings
-set newtab http://cuddlenode:8080
+set newtab https://jechton.github.io/lab-startpage
 set newtabfocus page
 set modeindicator false
 set smoothscroll true
