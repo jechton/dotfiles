@@ -14,6 +14,10 @@ if type -q flatpak
     if flatpak list --columns application | grep visualstudio >/dev/null
         alias code 'flatpak run (flatpak list --columns application | grep "visualstudio")'
     end
+
+    if flatpak list --columns application | grep "dev.zed.Zed" >/dev/null
+        alias zed 'flatpak run dev.zed.Zed'
+    end
 end
 
 if type -q ug
