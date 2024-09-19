@@ -29,5 +29,9 @@ if type -q rg
     alias rg 'rg --hidden --line-number --sort=path'
 end
 
+if type -q rsync
+    alias rcp 'rsync -zvhP'
+end
+
 alias q exit
 alias e exit
