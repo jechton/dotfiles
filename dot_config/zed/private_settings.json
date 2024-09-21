@@ -1,7 +1,7 @@
 {
   "always_treat_brackets_as_autoclosed": true,
   "assistant": {
-    "default_model": { "provider": "google", "model": "gemini-1.5-flash" },
+    "default_model": { "provider": "zed.dev", "model": "claude-3-5-sonnet-20240620" },
     "version": "2"
   },
   "auto_install_extensions": {
@@ -29,8 +29,8 @@
       "formatter": [
         {
           "code_actions": {
-            "source.organizeImports.ruff": true,
-            "source.fixAll.ruff": true
+            "source.organizeImports.ruff": true
+            // "source.fixAll.ruff": true
           }
         },
         {
@@ -39,10 +39,13 @@
           }
         }
       ],
-      "language_servers": ["pyright", "ruff"]
+      "language_servers": ["basedpyright", "!pyright", "ruff"]
     }
   },
   "lsp": {
+    "pyright": {
+      "settings": { "python": { "pythonPath": ".venv/bin/python" } }
+    },
     "ruff": {
       "initialization_options": {
         "settings": {
@@ -55,12 +58,18 @@
   },
   "notification_panel": { "button": false },
   "outline_panel": { "dock": "right" },
-  "preferred_line_length": 90,
+  "preferred_line_length": 120,
   "project_panel": { "dock": "right" },
   "soft_wrap": "preferred_line_length",
   "tab_bar": { "show_nav_history_buttons": false },
-  "tabs": { "file_icons": true, "git_status": true },
-  "telemetry": { "diagnostics": false, "metrics": false },
+  "tabs": {
+    "file_icons": true,
+    "git_status": true
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
   "terminal": {
     "button": false,
     "env": {
@@ -70,7 +79,12 @@
       "EDITOR": "zed --wait",
       "VISUAL": "zed --wait"
     },
-    "detect_venv": { "on": { "activate_script": "fish" } }
+    "detect_venv": {
+      "on": {
+        "directories": [".venv"],
+        "activate_script": "fish"
+      }
+    }
   },
   "theme": {
     "mode": "system",
