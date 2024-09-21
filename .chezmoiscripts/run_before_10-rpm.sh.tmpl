@@ -9,7 +9,7 @@ true || source ../.chezmoitemplates/scripts-library
 set -eufo pipefail
 
 if ! [ -f /etc/yum.repos.d/vscode.repo ]; then
-  log_task "Adding VS Code Repo"
+  log_task "Adding VS Code repo"
 
   c sudo cat <<EOF >/etc/yum.repos.d/vscode.repo
 [code]
@@ -25,6 +25,19 @@ if ! command -v code &>/dev/null; then
   log_task "Installing VS Code"
 
   c sudo rpm-ostree install code
+fi
+
+if ! [ -f /etc/yum.repos.d/terra.repo ]; then
+  log_task "Adding terra repo"
+
+  c curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | pkexec tee /etc/yum.repos.d/terra.repo
+  c sudo rpm-ostree install terra-release
+fi
+
+if ! command -v zed &>/dev/null; then
+  log_task "Installing zed"
+
+  c sudo rpm-ostree install zed-nightly
 fi
 
 if command -v yelp &>/dev/null; then
