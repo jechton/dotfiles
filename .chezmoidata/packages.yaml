@@ -34,7 +34,8 @@ packages:
     - "org.telegram.desktop"
     - "io.github.zen_browser.zen"
   pip:
-    - "poetry"
+    - "basedpyright"
+    - "uv"
   termux:
     - "atuin"
     - "bat"
