@@ -33,6 +33,8 @@ packages:
     - "com.github.zocker_160.SyncThingy"
     - "org.telegram.desktop"
     - "io.github.zen_browser.zen"
+  pip:
+    - "poetry"
   termux:
     - "atuin"
     - "bat"
