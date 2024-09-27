@@ -119,4 +119,8 @@ function gsettings_ensure() {
 gsettings_ensure org.gnome.shell.extensions.azwallpaper slideshow-directory "{{ .chezmoi.homeDir }}/Pictures/Wallpapers/Gruvbox" azwallpaper@azwallpaper.gitlab.com
 gsettings_ensure org.gnome.shell.extensions.azwallpaper slideshow-slide-duration "(1, 0, 0)" azwallpaper@azwallpaper.gitlab.com
 gsettings_ensure org.gnome.shell.extensions.just-perfection window-demands-attention-focus "false"
+gsettings_ensure org.gnome.shell.extensions.just-perfection world-clock "false"
+gsettings_ensure org.gnome.shell.extensions.just-perfection search "false"
+gsettings_ensure org.gnome.shell.extensions.just-perfection workspaces-in-app-grid "false"
+gsettings_ensure org.gnome.shell.extensions.just-perfection clock-menu-position "1" # Right
 # {{- end -}}
