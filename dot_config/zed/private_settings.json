@@ -18,23 +18,15 @@
   "auto_signature_help": true,
   "buffer_font_family": "Iosevka Nerd Font",
   "buffer_font_size": 16,
-  "chat_panel": {
-    "button": false
-  },
-  "collaboration_panel": {
-    "button": false
-  },
+  "chat_panel": { "button": false },
+  "collaboration_panel": { "button": false },
   "features": {
     "inline_completion_provider": "none",
     "copilot": false
   },
   "file_types": {
-    "Bash": [
-      "sh.tmpl"
-    ],
-    "Fish": [
-      "fish.tmpl"
-    ]
+    "Bash": ["sh.tmpl"],
+    "Fish": ["fish.tmpl"]
   },
   "formatter": "prettier",
   "git": {
@@ -43,12 +35,8 @@
     }
   },
   // Rainbow indents
-  "indent_guides": {
-    "coloring": "indent_aware"
-  },
-  "inlay_hints": {
-    "enabled": true
-  },
+  "indent_guides": { "coloring": "indent_aware" },
+  "inlay_hints": { "enabled": true },
   "languages": {
     "Python": {
       "formatter": [
@@ -64,11 +52,7 @@
           }
         }
       ],
-      "language_servers": [
-        "basedpyright",
-        "!pyright",
-        "ruff"
-      ]
+      "language_servers": ["!basedpyright", "pyright", "ruff"]
     }
   },
   "lsp": {
@@ -83,28 +67,18 @@
       "initialization_options": {
         "settings": {
           "lint": {
-            "extendSelect": [
-              "I"
-            ]
+            "extendSelect": ["I"]
           }
         }
       }
     }
   },
-  "notification_panel": {
-    "button": false
-  },
-  "outline_panel": {
-    "dock": "right"
-  },
+  "notification_panel": { "button": false },
+  "outline_panel": { "dock": "right" },
   "preferred_line_length": 120,
-  "project_panel": {
-    "dock": "right"
-  },
+  "project_panel": { "dock": "right" },
   "soft_wrap": "preferred_line_length",
-  "tab_bar": {
-    "show_nav_history_buttons": false
-  },
+  "tab_bar": { "show_nav_history_buttons": false },
   "tabs": {
     "file_icons": true,
     "git_status": true
@@ -124,9 +98,7 @@
     },
     "detect_venv": {
       "on": {
-        "directories": [
-          ".venv"
-        ],
+        "directories": [".venv"],
         "activate_script": "fish"
       }
     }

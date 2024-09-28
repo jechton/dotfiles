@@ -7,21 +7,9 @@
 // from the command palette.
 [
   {
-    "context": "Workspace",
-    "bindings": {
-      // "shift shift": "file_finder::Toggle"
-    }
-  },
-  {
-    "context": "Editor",
-    "bindings": {
-      // "j k": ["workspace::SendKeystrokes", "escape"]
-    }
-  },
-  {
     "context": "!Terminal",
     "bindings": {
-      "ctrl-shift-c": null
+      "ctrl-shift-g": ["workspace::SendKeystrokes", "ctrl-shift-p new center terminal enter lazygit enter"]
     }
   }
 ]
