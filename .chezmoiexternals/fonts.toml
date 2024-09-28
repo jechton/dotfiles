@@ -1,13 +1,14 @@
 {{- if eq .chezmoi.os "linux" -}}
 {{-   range (list
       "JetBrainsMono"
+      "Iosevka"
       "NerdFontsSymbolsOnly") }}
 [".local/share/fonts/{{ . }}"]
     type = "archive"
     url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ . }}.tar.xz"
     exact = true
     refreshPeriod = "168h"
-    include = ["SymbolsNerdFont*", "JetBrainsMonoNerdFont-*"]
+    include = ["SymbolsNerdFont*", "JetBrainsMonoNerdFont-*", "IosevkaNerdFont-*"]
 {{-   end }}
 [".local/share/fonts/Inter"]
     type = "archive"
