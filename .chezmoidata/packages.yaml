@@ -13,7 +13,6 @@ packages:
     - "lazygit"
     - "neovim"
     - "node"
-    - "pipx"
     - "pnpm"
     - "rclone"
     - "ripgrep"
