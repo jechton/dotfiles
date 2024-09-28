@@ -19,6 +19,7 @@ packages:
     - "ripgrep"
     - "shellcheck"
     - "starship"
+    - "syncthing"
     - "tealdeer"
     - "ugrep"
     - "yq"
@@ -30,7 +31,6 @@ packages:
     - "page.kramo.Cartridges"
     - "org.localsend.localsend_app"
     - "md.obsidian.Obsidian"
-    - "com.github.zocker_160.SyncThingy"
     - "org.telegram.desktop"
     - "io.github.zen_browser.zen"
   pip:
