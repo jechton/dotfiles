@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=SyncThing
+Icon=syncthing
+Type=Application
+Exec=/home/linuxbrew/.linuxbrew/bin/syncthing --no-browser
+Terminal=false
