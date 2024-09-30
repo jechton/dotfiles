@@ -1,0 +1,149 @@
+#!/usr/bin/env bash
+
+set -eu
+
+# Default configuration file name
+DEFAULT_OVPN_CONF="riseup-ovpn.conf"
+# Parse command-line arguments
+OVPN_CONF=$DEFAULT_OVPN_CONF
+VERBOSE=
+NO_COMMENTS=
+SILENT=1
+# Function to display help message
+show_help() {
+    cat << EOF
+Usage: $(basename "$0") [OPTIONS] [CONFIG_FILE]
+Generate OpenVPN configuration for Riseup VPN
+
+Options:
+  -v, --verbose       Enable verbose output
+  -nc, --no-comments  Remove comments from the configuration
+  -h, --help          Display this help message and exit
+
+If CONFIG_FILE is not specified, the default '$DEFAULT_OVPN_CONF' will be used.
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -v|--verbose)
+            VERBOSE=1
+            SILENT=
+            set -x
+            shift
+            ;;
+        -nc|--no-comments)
+            NO_COMMENTS=1
+            shift
+            ;;
+        -h|--help)
+            show_help
+            exit 0
+            ;;
+        *)
+            OVPN_CONF=$1
+            shift
+            ;;
+    esac
+done
+
+echo -e "\e[36mPlease wait, riseup API can be very slow...\e[0m"
+
+# Download new VPN client certs (private and public keys)
+key_cert=$(curl ${VERBOSE:+-v} ${SILENT:+-sS} --fail --connect-timeout 10 --retry 3 https://api.black.riseup.net/3/cert)
+
+# Split the key and certificate
+private_key=$(echo "$key_cert" | awk '/BEGIN RSA PRIVATE KEY/,/END RSA PRIVATE KEY/')
+certificate=$(echo "$key_cert" | awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/')
+
+# Create the OpenVPN configuration file
+cat > $OVPN_CONF <<EOL
+client
+
+dev tun
+proto tcp
+
+# remote entries will be added here
+remote-random
+
+nobind
+persist-key
+persist-tun
+
+remote-cert-tls server
+
+pull-filter ignore "tun-ipv6"
+pull-filter ignore "route-ipv6"
+pull-filter ignore "ifconfig-ipv6"
+block-ipv6
+
+cipher AES-256-GCM
+data-ciphers AES-256-GCM
+keepalive 10 30
+
+verb 3
+
+<key>
+$private_key
+</key>
+
+<cert>
+$certificate
+</cert>
+EOL
+
+# Get the VPN IP list, and add them to openvpn conf
+gateways=$(curl ${VERBOSE:+-v} ${SILENT:+-sS} --fail --connect-timeout 10 --retry 3 https://api.black.riseup.net/3/config/eip-service.json | jq '.gateways')
+
+# Array to store ping results
+declare -A ping_results
+
+echo -e "\e[33mPinging gateways...\e[0m"
+for gateway_b64 in $(echo "$gateways" | jq -r '.[] | @base64'); do
+    gateway=$(echo $gateway_b64 | base64 --decode)
+    ip_address=$(echo $gateway | jq -r '.ip_address')
+    host=$(echo $gateway | jq -r '.host')
+    location=$(echo $gateway | jq -r '.location')
+
+    # Ping the IP address and get the average time
+    ping_time=$(ping -c 3 $ip_address 2>/dev/null | tail -1 | awk '{print $4}' | cut -d '/' -f 2)
+
+    if [ ! -z "$ping_time" ]; then
+        ping_results["$ip_address"]="$ping_time|$host|$location"
+        echo -e "\e[32mPing time for $ip_address ($host, $location): ${ping_time}ms\e[0m"
+    fi
+done
+
+echo -e "\e[33mSorting gateways by ping time...\e[0m"
+top_10_ips=$(for ip in "${!ping_results[@]}"; do
+    echo "${ping_results[$ip]}|$ip"
+done | sort -n | head -n 5 | awk -F'|' '{print $4 "|" $2 "|" $3 "|" $1}')
+
+echo -e "\e[33mAdding top 5 gateways to OpenVPN config...\e[0m"
+remote_entries=""
+while IFS='|' read -r ip_address host location ping_time; do
+    ports=$(echo "$gateways" | jq -r ".[] | select(.ip_address == \"$ip_address\") | .capabilities.transport[] | select(.type | contains(\"openvpn\")) | .ports[]")
+    for port in $ports; do
+        if [ -n "${NO_COMMENTS-}" ]; then
+            remote_entries="${remote_entries}remote $ip_address $port
+"
+        else
+            remote_entries="${remote_entries}remote $ip_address $port # $host ($location) measured ping at ${ping_time}ms
+"
+        fi
+    done
+done <<< "$top_10_ips"
+
+# Insert remote entries into the configuration file
+sed -i "/# remote entries will be added here/r /dev/stdin" $OVPN_CONF <<EOF
+$remote_entries
+EOF
+sed -i '/# remote entries will be added here/d' $OVPN_CONF
+
+echo -e "\e[32m[✓] OpenVPN configuration file successfully created: $OVPN_CONF\e[0m"
+echo -e "\e[34mTo import the configuration:\e[0m"
+echo -e "\e[34m1. Using NetworkManager CLI:\e[0m"
+echo -e "\e[34m   nmcli connection import type openvpn file $OVPN_CONF\e[0m"
+echo -e "\e[34m2. Using OpenVPN directly:\e[0m"
+echo -e "\e[34m   sudo openvpn --config $OVPN_CONF\e[0m"
+echo -e "\e[33mNote: Ensure you have the necessary permissions to use VPN connections.\e[0m"
