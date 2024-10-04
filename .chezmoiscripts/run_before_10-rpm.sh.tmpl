@@ -40,7 +40,7 @@ if ! command -v zed &>/dev/null; then
   c sudo rpm-ostree install zed-nightly
 fi
 
-if ! [ -f /etc/yum.repos.d/brave.repo ]; then
+if ! [ -f /etc/yum.repos.d/brave-browser.repo ]; then
   log_task "Adding Brave repo"
 
   c sudo cat <<EOF >/etc/yum.repos.d/brave-browser.repo
