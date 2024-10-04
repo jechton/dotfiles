@@ -36,6 +36,5 @@ abbr md 'mkdir -p'
 abbr rd rmdir
 
 if type -q bat
-    abbr -a --position anywhere --set-cursor -- -h "-h 2>&1 | bat --plain --language=help"
-    abbr -a --position anywhere --set-cursor -- --help "--help 2>&1 | bat --plain --language=help"
+    abbr -a --position anywhere --set-cursor -- --help "--help | bat --plain --language=help"
 end
