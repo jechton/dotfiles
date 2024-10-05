@@ -7,6 +7,9 @@ gui:
 git:
   parseEmoji: true
   overrideGpg: true
+  paging:
+    colorArg: always
+    pager: delta --paging=never --syntax-theme=ansi
 customCommands:
   - key: "<c-p>"
     command: "git remote prune {{.SelectedRemote.Name}}"
