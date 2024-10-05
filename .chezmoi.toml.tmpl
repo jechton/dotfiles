@@ -27,7 +27,7 @@ exclude = ["scripts"]
 pager = "delta --syntax-theme=ansi"
 
 [edit]
-command = "nvim"
+command = "zed"
 
 [status]
 exclude = ["scripts"]
@@ -39,4 +39,4 @@ de = {{ (env "XDG_CURRENT_DESKTOP" | trim | lower | quote) }}
 device_type = {{ $device_type | lower | quote }}
 
 [github]
-refreshPeriod = "12h"
+refreshPeriod = "30m"
