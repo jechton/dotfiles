@@ -7,11 +7,11 @@ path = delta_themes
 name = Jeremiah
 email = 44993244+jechton@users.noreply.github.com
 
+[url "ssh://git@github.com"]
+insteadOf = https://github.com
 {{$ghPath := lookPath "gh" -}}
 {{- if $ghPath -}}
-[credential "https://github.com"]
-helper = !{{ $ghPath }} auth git-credential
-[credential "https://gist.github.com"]
+[credential "ssh://github.com"]
 helper = !{{ $ghPath }} auth git-credential
 {{- end }}
 [credential]
