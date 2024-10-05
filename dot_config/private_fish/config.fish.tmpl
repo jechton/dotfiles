@@ -5,7 +5,7 @@ end
 
 ## Launch atuin
 if status is-interactive
-    if type -q atuin
+    if command -qs atuin
         atuin init fish | source
     end
 end

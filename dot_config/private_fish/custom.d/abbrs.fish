@@ -1,5 +1,5 @@
 # git
-if type -q git
+if command -qs git
     abbr g git
     abbr ga 'git add .'
     abbr gaa 'git add --all'
@@ -14,14 +14,13 @@ if type -q git
 end
 
 # nvim
-if type -q nvim
+if command -qs nvim
     abbr vi nvim
     abbr vim nvim
 end
 
 # chezmoi
-if type -q chezmoi
-    abbr c chezmoi
+if command -qs chezmoi
     abbr ca 'chezmoi apply'
     abbr cu 'chezmoi update'
     abbr ce 'chezmoi edit'
@@ -35,6 +34,10 @@ abbr rmr 'rm -rf'
 abbr md 'mkdir -p'
 abbr rd rmdir
 
-if type -q bat
+if command -qs lazygit
+    abbr lg lazygit
+end
+
+if command -qs bat
     abbr -a --position anywhere --set-cursor -- --help "--help | bat --plain --language=help"
 end
