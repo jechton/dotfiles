@@ -22,4 +22,4 @@ end
 # Don't update brew, bluefin/bazzite already do
 set -Ux HOMEBREW_NO_AUTO_UPDATE 1
 
-set -gx RIPGREP_CONFIG_PATH "$XDG_CONFIG_HOME/ripgrep/ripgreprc"
+set -gx RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/ripgreprc"
