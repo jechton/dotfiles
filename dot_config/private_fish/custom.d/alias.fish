@@ -11,11 +11,11 @@ if command -qs bat
 end
 
 if command -qs batman
-    alias man "batman"
+    alias man batman
 end
 
 if command -qs prettybat
-    alias pb "prettybat"
+    alias pb prettybat
 end
 
 if command -qs ug
@@ -28,7 +28,7 @@ if command -qs ug
 end
 
 if command -qs rsync
-    alias rcp 'rsync -zvhP'
+    alias rcp 'rsync --partial --info=progress2 -haz'
 end
 
 alias q exit
