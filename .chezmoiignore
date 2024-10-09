@@ -2,6 +2,7 @@ README.md
 LICENSE
 .config/Code
 .config/fish/{conf.d,completions,fish_variables,functions}
+**/*.src.ini
 
 {{ if eq .chezmoi.os "android" }}
 .config/fish/custom_functions.d/note.fish
