@@ -11,7 +11,7 @@ if [ ! -f "$HOME/.config/fish/functions/fisher.fish" ]; then
 fi
 
 # This script will run whenever there's an update in .config/fish/fish_plugins
-# .config/fish/fish_plugins hash: {{ include "dot_config/private_fish/fish_plugins.tmpl" | sha256sum }}
+# .config/fish/fish_plugins hash: {{ include "private_dot_config/fish/fish_plugins.tmpl" | sha256sum }}
 
 log_task "Updating fish plugins"
 c fish -c "fisher update"
