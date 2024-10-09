@@ -20,11 +20,11 @@ Pictures
 .config/kxkbrc
 {{ end }}
 
-{{ if ne .blue }}
+{{ if not .blue }}
 .config/autostart
 {{ end }}
 
-{{ if eq .server }}
+{{ if .server }}
 .config/{gh,lazygit,wezterm,zed}
 Pictures
 {{ end }}
