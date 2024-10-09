@@ -1,7 +1,8 @@
 packages:
   apt:
     - "bat"
-    - "build-essential"
+    - "build-essential" # for rust to build
+    - "cmake" # for rust to build
     - "fzf"
     - "neovim"
     - "ripgrep"
