@@ -10,6 +10,14 @@ set -eufo pipefail
 
 log_task "Installing cargo packages"
 
-cargo install --locked {{ range .packages.cargo }}
+CARGO=$(command -v cargo)
+if [[ -z "$CARGO" ]]; then
+  CARGO="$HOME/.cargo/bin/cargo"
+fi
+
+# {{ range .packages.cargo -}}
+# shellcheck disable=SC1083
+"$CARGO" install {{ . | quote }}
+# {{ end -}}
 
 # {{- end -}}

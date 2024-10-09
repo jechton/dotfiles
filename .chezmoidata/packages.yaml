@@ -1,6 +1,7 @@
 packages:
   apt:
     - "bat"
+    - "build-essential"
     - "fzf"
     - "neovim"
     - "ripgrep"

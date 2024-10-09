@@ -8,8 +8,9 @@ true || source ../.chezmoitemplates/scripts-library
 
 set -eufo pipefail
 
-log_task "Installing rust and cargo"
-
-c curl https://sh.rustup.rs -sSf | sh
+if ! command -v cargo &>/dev/null; then
+  log_task "Installing rust and cargo"
+  c curl https://sh.rustup.rs -sSf | sh
+fi
 
 # {{- end -}}
