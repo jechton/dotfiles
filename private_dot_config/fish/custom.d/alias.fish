@@ -6,8 +6,11 @@ if command -qs eza
     alias la 'eza -lag --icons --git --sort=type --header --no-time --total-size'
 end
 
-if command -qs bat
-    alias cat "bat -pp"
+for cmd in bat batcat
+    if command -qs $cmd
+        alias cat "$cmd -pp"
+        break
+    end
 end
 
 if command -qs batman

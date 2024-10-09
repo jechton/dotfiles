@@ -14,9 +14,12 @@ end
 # Load GPG keys
 set GPG_TTY $(tty)
 
-# Colorize man pages with bat
-if command -qs bat
-    set MANPAGER "sh -c 'col -bx | bat -l man -p'"
+# Colorize man pages with bat or batcat
+for cmd in bat batcat
+    if command -qs $cmd
+        set MANPAGER "sh -c 'col -bx | $cmd -l man -p'"
+        break
+    end
 end
 
 # Don't update brew, bluefin/bazzite already do

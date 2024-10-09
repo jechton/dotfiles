@@ -38,6 +38,8 @@ if command -qs lazygit
     abbr lg lazygit
 end
 
-if command -qs bat
-    abbr -a --position anywhere --set-cursor -- --help "--help | bat --plain --language=help"
+for cmd in bat batcat
+    if command -qs $cmd
+        abbr -a --position anywhere --set-cursor -- --help "--help | $cmd --plain --language=help"
+    end
 end
