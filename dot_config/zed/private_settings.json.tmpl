@@ -9,6 +9,7 @@
   },
   "auto_install_extensions": {
     "basher": true,
+    "csv": true,
     "fish": true,
     "git-firefly": true,
     "html": true,
@@ -16,14 +17,25 @@
     "toml": true
   },
   "auto_signature_help": true,
-  "buffer_font_family": "Iosevka Nerd Font",
-  "buffer_font_size": 16,
+  "buffer_font_family": "{{- .font.mono -}}",
+  "buffer_font_size": 14,
   "chat_panel": { "button": false },
   "collaboration_panel": { "button": false },
   "features": {
     "inline_completion_provider": "none",
     "copilot": false
   },
+  "file_scan_exclusions": [
+    "**/.git",
+    "**/.svn",
+    "**/.hg",
+    "**/CVS",
+    "**/.DS_Store",
+    "**/Thumbs.db",
+    "**/.classpath",
+    "**/.settings",
+    "**/__pycache__"
+  ],
   "file_types": {
     "Bash": ["*.sh.tmpl"],
     "Fish": ["*.fish.tmpl"]
@@ -42,8 +54,8 @@
       "formatter": [
         {
           "code_actions": {
-            "source.organizeImports.ruff": true
-            // "source.fixAll.ruff": true
+            "source.organizeImports.ruff": true,
+            "source.fixAll.ruff": true
           }
         },
         {
@@ -52,7 +64,7 @@
           }
         }
       ],
-      "language_servers": ["!basedpyright", "pyright", "ruff"]
+      "language_servers": ["pyright", "ruff"]
     }
   },
   "lsp": {
@@ -74,10 +86,8 @@
     }
   },
   "notification_panel": { "button": false },
-  "outline_panel": { "dock": "right" },
-  "preferred_line_length": 120,
-  "project_panel": { "dock": "right" },
-  "soft_wrap": "preferred_line_length",
+  "project_panel": { "auto_fold_dirs": true },
+  "soft_wrap": "editor_width",
   "tab_bar": { "show_nav_history_buttons": false },
   "tabs": {
     "file_icons": true,
@@ -108,6 +118,6 @@
     "light": "Gruvbox Light",
     "dark": "Gruvbox Dark"
   },
-  "ui_font_family": "Inter Variable",
+  "ui_font_family": "{{- .font.sans -}}",
   "ui_font_size": 16
 }
