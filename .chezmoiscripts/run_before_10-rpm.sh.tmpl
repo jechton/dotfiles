@@ -11,7 +11,7 @@ set -eufo pipefail
 if ! [ -f /etc/yum.repos.d/vscode.repo ]; then
   log_task "Adding VS Code repo"
 
-  c sudo cat <<EOF >/etc/yum.repos.d/vscode.repo
+  c sudo tee /etc/yum.repos.d/vscode.repo > /dev/null <<EOF
 [code]
 name=Visual Studio Code
 baseurl=https://packages.microsoft.com/yumrepos/vscode
@@ -30,7 +30,7 @@ fi
 if ! [ -f /etc/yum.repos.d/terra.repo ]; then
   log_task "Adding terra repo"
 
-  c curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | pkexec tee /etc/yum.repos.d/terra.repo
+  c curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | sudo tee /etc/yum.repos.d/terra.repo > /dev/null
   c sudo rpm-ostree install terra-release
 fi
 
@@ -43,7 +43,7 @@ fi
 if ! [ -f /etc/yum.repos.d/brave-browser.repo ]; then
   log_task "Adding Brave repo"
 
-  c sudo cat <<EOF >/etc/yum.repos.d/brave-browser.repo
+  c sudo tee /etc/yum.repos.d/brave-browser.repo > /dev/null <<EOF
 [brave-browser]
 name=Brave Browser
 enabled=1
