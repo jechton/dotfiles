@@ -77,7 +77,7 @@ end
 
 if type -q gh
     log_c "Github completion"
-    gh completion -s fish >> $__fish_config_dir/completions/gh.fish
+    gh completion -s fish >$__fish_config_dir/completions/gh.fish
 end
 
 if type -q cht.sh

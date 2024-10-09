@@ -9,6 +9,8 @@ if ! command -v fish &>/dev/null; then
 	log_task "Installing fish"
 	if command -v pkg >/dev/null; then
 		c pkg install -y fish
+	elif command -v apt >/dev/null; then
+		c apt install -y fish
 	elif command -v brew >/dev/null; then
 		c brew install -q fish
 	fi
