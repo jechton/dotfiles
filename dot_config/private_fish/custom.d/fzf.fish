@@ -14,5 +14,7 @@ end
 set fzf_fd_opts --hidden --exclude=.git --exclude=.github --exclude=.cache
 
 if type -q fzf
-    fzf --fish | source
+    if test (fzf --help | grep -- --fish)
+        fzf --fish | source
+    end
 end
