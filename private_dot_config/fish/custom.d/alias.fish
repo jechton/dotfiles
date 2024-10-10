@@ -6,6 +6,10 @@ if command -qs eza
     alias la 'eza -lag --icons --git --sort=type --header --no-time --total-size'
 end
 
+if command -qs batcat
+    alias bat batcat
+end
+
 for cmd in bat batcat
     if command -qs $cmd
         alias cat "$cmd -pp"
