@@ -23,6 +23,7 @@ brew = [
   "helix",
   "lazygit",
   "neovim",
+  "pipx",
   "rclone",
   "ripgrep",
   "sd",
