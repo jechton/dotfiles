@@ -47,4 +47,14 @@ if ! command -v brave-browser &>/dev/null; then
 
   c sudo rpm-ostree install brave-browser
 fi
+
+if ! [ -f /etc/yum.repos.d/terra.repo ]; then
+  log_task "Adding terra repo"
+  c curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | sudo tee /etc/yum.repos.d/terra.repo > /dev/null
+  c sudo rpm-ostree install terra-release
+fi
+if ! command -v zed &>/dev/null; then
+  log_task "Installing zed"
+  c sudo rpm-ostree install zed
+fi
 # {{- end -}}
