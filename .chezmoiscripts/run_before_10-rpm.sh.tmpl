@@ -27,26 +27,6 @@ if ! command -v code &>/dev/null; then
   c sudo rpm-ostree install code
 fi
 
-if ! [ -f /etc/yum.repos.d/brave-browser.repo ]; then
-  log_task "Adding Brave repo"
-
-  c sudo tee /etc/yum.repos.d/brave-browser.repo > /dev/null <<EOF
-[brave-browser]
-name=Brave Browser
-enabled=1
-autorefresh=1
-baseurl=https://brave-browser-rpm-release.s3.brave.com/x86_64
-gpgcheck=1
-repo_gpgcheck=1
-gpgkey=https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-EOF
-fi
-
-if ! command -v brave-browser &>/dev/null; then
-  log_task "Installing Brave"
-  c sudo rpm-ostree install brave-browser
-fi
-
 if ! [ -f /etc/yum.repos.d/terra.repo ]; then
   log_task "Adding terra repo"
   c curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | sudo tee /etc/yum.repos.d/terra.repo > /dev/null

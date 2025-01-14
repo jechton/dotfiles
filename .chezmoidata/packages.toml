@@ -50,6 +50,7 @@ flatpak = [
     "org.localsend.localsend_app",
     "md.obsidian.Obsidian",
     "org.telegram.desktop",
+    "io.github.zen_browser.zen",
 ]
 
 go = ["github.com/Achno/gowall@latest"]
