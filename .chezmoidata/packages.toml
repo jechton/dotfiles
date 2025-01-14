@@ -23,7 +23,6 @@ brew = [
   "helix",
   "lazygit",
   "neovim",
-  "pipx",
   "rclone",
   "ripgrep",
   "sd",
@@ -35,6 +34,7 @@ brew = [
   "tealdeer",
   "trash-cli",
   "ugrep",
+  "uv",
   "yq",
   "zoxide",
 ]
@@ -63,7 +63,7 @@ node = [
     "pyright",
 ]
 
-pipx = ["basedpyright", "uv"]
+python = ["basedpyright", "ruff"]
 
 termux = [
     "bat",

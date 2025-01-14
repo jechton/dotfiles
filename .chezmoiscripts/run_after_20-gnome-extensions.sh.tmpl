@@ -10,14 +10,14 @@ function is_gnome_extension_installed() {
   local extension="$1"
 
   # https://github.com/essembeh/gnome-extensions-cli/issues/29
-  gext list --all | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' | grep --quiet "(${extension})"
+  uvx --from gnome-extensions-cli gext list --all | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' | grep --quiet "(${extension})"
 }
 
 function is_gnome_extension_enabled() {
   local extension="$1"
 
   # https://github.com/essembeh/gnome-extensions-cli/issues/29
-  gext list | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' | grep --quiet "(${extension})"
+  uvx --from gnome-extensions-cli gext list | sed 's/\x1B\[[0-9;]\{1,\}[A-Za-z]//g' | grep --quiet "(${extension})"
 }
 
 # Extensions to install and enable
@@ -59,11 +59,6 @@ disabled_extensions=(
 # Init before loop. Leave this empty.
 missing_extensions=()
 
-if ! command -v gext >/dev/null; then
-  log_task "Installing gnome-extensions-cli"
-  c pipx install --force gnome-extensions-cli
-fi
-
 for extension in "${wanted_extensions[@]}"; do
   # shellcheck disable=SC2310
   if ! is_gnome_extension_installed "${extension}"; then
@@ -73,27 +68,27 @@ done
 
 if [[ ${#missing_extensions[@]} -gt 0 ]]; then
   log_task "Installing GNOME extensions"
-  gext install "${missing_extensions[@]}"
+  uvx --from gnome-extensions-cli gext install "${missing_extensions[@]}"
 fi
 
 for extension in "${disabled_extensions[@]}"; do
   if is_gnome_extension_enabled "${extension}"; then
     log_task "Disabling GNOME extension: ${extension}"
-    gext disable "${extension}"
+    uvx --from gnome-extensions-cli gext disable "${extension}"
   fi
 done
 
 for extension in "${wanted_extensions[@]}"; do
   if ! is_gnome_extension_enabled "${extension}"; then
     log_task "Enabling GNOME extension: ${extension}"
-    gext enable "${extension}"
+    uvx --from gnome-extensions-cli gext enable "${extension}"
   fi
 done
 
 for extension in "${unwanted_extensions[@]}"; do
   if is_gnome_extension_installed "${extension}"; then
     log_task "Uninstalling GNOME extension: ${extension}"
-    gext uninstall "${extension}"
+    uvx --from gnome-extensions-cli gext uninstall "${extension}"
   fi
 done
 

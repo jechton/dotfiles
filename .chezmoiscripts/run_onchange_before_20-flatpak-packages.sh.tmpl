@@ -12,7 +12,7 @@ log_task "Installing flatpaks"
 
 # {{ range .packages.flatpak -}}
 # shellcheck disable=SC1083
-c flatpak install --noninteractive --user {{ . | quote }}
+c flatpak install --noninteractive {{ . | quote }}
 # {{ end -}}
 
 # {{- end -}}
