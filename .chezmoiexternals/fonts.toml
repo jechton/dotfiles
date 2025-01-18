@@ -1,9 +1,9 @@
 {{- if and (eq .chezmoi.os "linux") (not .server) -}}
 {{-   range (list
       "DepartureMono"
-      "JetBrainsMono"
       "Iosevka"
       "IosevkaTerm"
+      "JetBrainsMono"
       "ProggyClean"
       "Terminus"
       "VictorMono"
@@ -13,7 +13,7 @@
     url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ . }}.tar.xz"
     exact = true
     refreshPeriod = "168h"
-    include = ["SymbolsNerdFont*", "IosevkaNerdFont-*", "IosevkaTermNerdFont-*", "JetBrainsMonoNerdFont-*", "ProggyClean*", "TerminessNerdFont-*"]
+    include = ["SymbolsNerdFont*", "DepartureMonoNerdFont-*", "IosevkaNerdFont-*", "IosevkaTermNerdFont-*", "JetBrainsMonoNerdFont-*", "ProggyClean*", "TerminessNerdFont-*", "VictorMonoNerdFont-*"]
 {{-   end }}
 [".local/share/fonts/Inter"]
     type = "archive"
