@@ -3,20 +3,25 @@ for file in $__fish_config_dir/custom.d/*.fish
     source $file
 end
 
-if command -q starship
-    function starship_transient_prompt_func
-        starship module character
-    end
-    starship init fish | source
-    enable_transience
-end
-
-if command -q zoxide
-    zoxide init fish --cmd cd | source
-end
-
-set -gx PNPM_HOME "/home/jeremiah/.local/share/pnpm"
+set -gx PNPM_HOME "{{ .chezmoi.homeDir }}/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
-  set -gx PATH "$PNPM_HOME" $PATH
+    set -gx PATH "$PNPM_HOME" $PATH
 end
 
+if status is-interactive
+    if command -q starship
+        function starship_transient_prompt_func
+            starship module character
+        end
+        starship init fish | source
+        enable_transience
+    end
+
+    if command -q zoxide
+        zoxide init fish --cmd cd | source
+    end
+
+    if command -q atuin
+        atuin init fish | source
+    end
+end

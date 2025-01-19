@@ -10,6 +10,7 @@ apt = [
 ]
 
 brew = [
+  "atuin",
   "bat",
   "bat-extras",
   "binutils",
