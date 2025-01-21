@@ -19,8 +19,11 @@
 {{-   end -}}
 {{- end -}}
 
+{{ $passphrase := promptStringOnce . "passphrase" "passphrase" -}}
+
 color = "on"
 pager = "less"
+encryption = "gpg"
 
 [diff]
 command = "difft"
@@ -44,7 +47,12 @@ osID = {{ $osID | quote }}
 blue = {{ $blue }}
 de = {{ (env "XDG_CURRENT_DESKTOP" | trim | lower | quote) }}
 device_type = {{ $device_type | lower | quote }}
-server = {{ eq .chezmoi.hostname "cuddlenode" }}
+server = {{ eq $osID "linux-debian" }}
+passhprase = {{ $passphrase | quote }}
+
+[gpg]
+symmetric = true
+args = ["--batch", "--passphrase", {{ $passphrase | quote }}, "--no-symkey-cache", "--quiet"]
 
 [github]
 refreshPeriod = "12h"
