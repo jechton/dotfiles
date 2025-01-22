@@ -1,8 +1,0 @@
-[Container]
-ContainerName=excalith
-Image=docker.io/excalith/start-page
-Volume={{ .chezmoi.homeDir }}/.config/containers/configs/excalith:/app/data:z
-PublishPort=8080:3000
-
-[Install]
-WantedBy=default.target

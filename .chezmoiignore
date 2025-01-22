@@ -16,7 +16,6 @@ gitignore
 {{ if not .blue }}
 .config/autostart
 .config/no-show-user-motd
-.config/containers
 .local/share/{applications,ice,wallpapers}
 {{ end }}
 
