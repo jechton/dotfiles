@@ -11,6 +11,7 @@ completion-replace = true
 completion-trigger-len = 1
 idle-timeout = 0
 soft-wrap.enable = true
+end-of-line-diagnostics = "hint"
 
 [editor.gutters.line-numbers]
 min-width = 1
@@ -21,6 +22,9 @@ hidden = false
 [editor.lsp]
 display-messages = true
 display-inlay-hints = true
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
 
 [editor.statusline]
 left = ["mode", "diagnostics", "spinner", "version-control"]
@@ -40,10 +44,25 @@ skip-levels = 1
 o = "file_picker_in_current_buffer_directory"
 
 [keys.normal]
-"A-k" = ["goto_line_end","extend_line_below", "delete_selection", "move_line_up", "paste_before"]
-"A-j" = ["goto_line_end","extend_line_below", "delete_selection", "paste_after"]
+"A-k" = [
+  "extend_to_line_bounds",
+  "delete_selection",
+  "move_line_up",
+  "paste_before",
+]
+"A-j" = ["extend_to_line_bounds", "delete_selection", "paste_after"]
 "esc" = ["collapse_selection", "keep_primary_selection"]
+"C-s" = ":write"
+
+[keys.insert]
+"C-s" = ":write"
 
 [keys.select]
-"A-k" = ["goto_line_end","extend_line_below",  "delete_selection", "move_line_up", "paste_before", "select_mode"]
-"A-j" = ["goto_line_end","extend_line_below",  "delete_selection", "paste_after", "select_mode" ]
+"A-k" = [
+  "extend_to_line_bounds",
+  "delete_selection",
+  "move_line_up",
+  "paste_before",
+]
+"A-j" = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+"C-s" = ":write"
