@@ -7,3 +7,6 @@ Host *
 
 	# https://ghostty.org/docs/help/terminfo
 	SetEnv TERM=xterm-256color
+
+Host bunpi
+    HostName bunpi

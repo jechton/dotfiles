@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# {{- if and (eq .chezmoi.os "linux") (not (.headless)) -}}
+# {{- if .pi -}}
 
 # {{ template "scripts-library" }}
 
@@ -8,8 +8,12 @@ true || source ../.chezmoitemplates/scripts-library
 
 set -eufo pipefail
 
-log_task "Fixing flatpak cursors"
+log_task "Installing packages"
 
-flatpak --user override --filesystem=~/.local/share/icons/:ro
-flatpak --user override --env=XCURSOR_PATH=~/.local/share/icons
+c sudo apt update -y
+
+{{ range .packages.pi }}
+sudo apt install -y {{ . | quote }}
+{{ end -}}
+
 # {{- end -}}

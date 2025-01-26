@@ -52,7 +52,6 @@ return {
 	-- replace UI for messages, cmdline, popupmenu
 	{ import = "astrocommunity.utility.noice-nvim" },
 	-- language packs
-	{{ if not .server -}}
 	{ import = "astrocommunity.pack.astro" },
 	{ import = "astrocommunity.pack.go" },
 	{ import = "astrocommunity.pack.html-css" },
@@ -61,7 +60,6 @@ return {
 	{ import = "astrocommunity.pack.svelte" },
 	{ import = "astrocommunity.pack.tailwindcss" },
 	{ import = "astrocommunity.pack.typescript" },
-	{{- end }}
 	{ import = "astrocommunity.pack.bash" },
 	{ import = "astrocommunity.pack.chezmoi" },
 	{ import = "astrocommunity.pack.docker" },

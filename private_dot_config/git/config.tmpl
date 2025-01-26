@@ -5,7 +5,9 @@ path = color
 [user]
 name = Jeremiah
 email = jechton@noreply.localhost
+{{ if not .headless -}}
 signingkey = ~/.ssh/id_ed25519.pub
+{{- end }}
 
 [includeIf "gitdir:~/.local/share/chezmoi"]
 path = config-github
@@ -13,7 +15,7 @@ path = config-github
 [includeIf "gitdir:~/Projects/GitHub/"]
 path = config-github
 
-{{ if not .server -}}
+{{ if not .headless -}}
 [url "ssh://git@github.com"]
 insteadOf = https://github.com
 
@@ -61,7 +63,9 @@ rebase = true
 
 [commit]
 verbose = true
+{{ if not .headless -}}
 gpgsign = true
+{{- end }}
 
 [absorb]
 maxStack=100

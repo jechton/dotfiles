@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# {{- if .server -}}
+# {{- if .headless -}}
 
 # {{ template "scripts-library" }}
 
@@ -12,12 +12,12 @@ log_task "Installing cargo packages"
 
 CARGO=$(command -v cargo)
 if [[ -z "$CARGO" ]]; then
-  CARGO="$HOME/.cargo/bin/cargo"
+  . "$HOME/.cargo/env"
 fi
 
 # {{ range .packages.cargo -}}
 # shellcheck disable=SC1083
-"$CARGO" install {{ . | quote }}
+cargo install {{ . | quote }}
 # {{ end -}}
 
 # {{- end -}}

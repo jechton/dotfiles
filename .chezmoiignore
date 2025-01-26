@@ -19,12 +19,8 @@ gitignore
 .local/share/{applications,ice,wallpapers}
 {{ end }}
 
-{{ if .server }}
+{{ if .headless }}
 .config/{gh,ghostty,helix,lazygit,nvim,zed}
-{{ end }}
-
-{{ if not .server }}
-.hushlogin
 {{ end }}
 
 {{ if eq .device_type "laptop" }}

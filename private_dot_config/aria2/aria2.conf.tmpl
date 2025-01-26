@@ -1,6 +1,6 @@
 continue
-{{ if .server -}}
-dir=/data/storage/downloads
+{{ if .headless -}}
+dir=/mnt/data/downloads
 {{ else -}}
 dir={{ .chezmoi.homeDir }}/Downloads
 {{ end -}}

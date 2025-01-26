@@ -1,65 +1,6 @@
 #!/usr/bin/env fish
 
-# TODO: figure out why this doesn't work as a template??
-
-function log_red
-    set_color red
-    echo "$argv"
-    set_color normal
-end
-
-function log_blue
-    set_color blue
-    echo "$argv"
-    set_color normal
-end
-
-function log_green
-    set_color green
-    echo "$argv"
-    set_color normal
-end
-
-function log_yellow
-    set_color yellow
-    echo "$argv"
-    set_color normal
-end
-
-function log_task
-    log_blue "🔃" "$argv"
-end
-
-function log_manual_action
-    log_red "⚠️" "$argv"
-end
-
-function log_c
-    log_yellow "👉" "$argv"
-end
-
-function c
-    log_c "$argv"
-    "$argv"
-end
-
-function c_exec
-    log_c "$argv"
-    exec "$argv"
-end
-
-function log_error
-    log_red "❌" "$argv"
-end
-
-function log_info
-    log_blue "ℹ️" "$argv"
-end
-
-function error
-    log_error "$argv"
-    exit 1
-end
+{{ template "scripts-library-fish" }}
 
 log_task "Setting up fish completions"
 
@@ -99,3 +40,5 @@ end
 log_c "ujust completion"
 ujust --completions fish | sed 's/\bjust\b/ujust/g' | sed s/_just/_ujust/g >$__fish_config_dir/completions/ujust.fish
 # {{- end }}
+
+fish_update_completions

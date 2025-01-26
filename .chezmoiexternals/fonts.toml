@@ -1,4 +1,4 @@
-{{- if and (eq .chezmoi.os "linux") (not .server) -}}
+{{- if and (eq .chezmoi.os "linux") (not .headless) -}}
 {{-   range (list
       "DepartureMono"
       "IBMPlexMono"

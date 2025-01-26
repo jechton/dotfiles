@@ -21,5 +21,5 @@ if command -v fish &>/dev/null && [ "$SHELL" != "$(which fish)" ]; then
 	# {{- if .blue -}}
 	c lchsh -s fish
 	# {{- end -}}
-	c chsh -s fish $USER
+	c chsh -s fish "$USER"
 fi

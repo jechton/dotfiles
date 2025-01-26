@@ -44,7 +44,9 @@ osID = {{ $osID | quote }}
 blue = {{ $blue }}
 de = {{ (env "XDG_CURRENT_DESKTOP" | trim | lower | quote) }}
 device_type = {{ $device_type | lower | quote }}
-server = {{ eq .chezmoi.hostname "cuddlenode" }}
+pi = {{ eq $osID "linux-debian"}}
+server = false # no server currently...
+headless = {{ or (eq $osID "linux-debian") false }}
 
 [github]
 refreshPeriod = "12h"

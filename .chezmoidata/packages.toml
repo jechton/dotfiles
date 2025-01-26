@@ -64,6 +64,8 @@ node = [
     "pyright",
 ]
 
+pi = ["cmake"]
+
 python = ["basedpyright", "ruff"]
 
 termux = [
