@@ -1,25 +1,17 @@
 function log_red
-  set_color red
-  echo "$argv"
-  set_color normal
+  echo -e (set_color red)"$argv"(set_color normal)
 end
 
 function log_blue
-  set_color blue
-  echo "$argv"
-  set_color normal
+  echo -e (set_color blue)"$argv"(set_color normal)
 end
 
 function log_green
-  set_color green
-  echo "$argv"
-  set_color normal
+  echo -e (set_color green)"$argv"(set_color normal)
 end
 
 function log_yellow
-  set_color yellow
-  echo "$argv"
-  set_color normal
+  echo -e (set_color yellow)"$argv"(set_color normal)
 end
 
 function log_task
