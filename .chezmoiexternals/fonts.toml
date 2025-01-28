@@ -6,6 +6,7 @@
       "Iosevka"
       "IosevkaTerm"
       "JetBrainsMono"
+      "Lilex"
       "ProggyClean"
       "Terminus"
       "VictorMono"
@@ -15,7 +16,7 @@
     url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/{{ . }}.tar.xz"
     exact = true
     refreshPeriod = "168h"
-    include = ["SymbolsNerdFont*", "BlexMonoNerdFont-*", "DepartureMonoNerdFont-*", "IntoneMonoNerdFont-*", "IosevkaNerdFont-*", "IosevkaTermNerdFont-*", "JetBrainsMonoNerdFont-*", "ProggyClean*", "TerminessNerdFont-*", "VictorMonoNerdFont-*"]
+    include = ["SymbolsNerdFont*", "BlexMonoNerdFont-*", "DepartureMonoNerdFont-*", "IntoneMonoNerdFont-*", "IosevkaNerdFont-*", "IosevkaTermNerdFont-*", "JetBrainsMonoNerdFont-*", "LilexNerdFont-*", "ProggyClean*", "TerminessNerdFont-*", "VictorMonoNerdFont-*"]
 {{-   end }}
 [".local/share/fonts/Inter"]
     type = "archive"
