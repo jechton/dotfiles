@@ -10,3 +10,7 @@ Host *
 
 Host bunpi
     HostName bunpi
+
+Host opti
+	HostName opti
+	User driftwoodeval
