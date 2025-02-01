@@ -27,20 +27,20 @@ if ! command -v code &>/dev/null; then
   c sudo rpm-ostree install code
 fi
 
-if ! [ -f /etc/yum.repos.d/terra.repo ]; then
-  log_task "Adding terra repo"
-  c curl -fsSL https://github.com/terrapkg/subatomic-repos/raw/main/terra.repo | sudo tee /etc/yum.repos.d/terra.repo > /dev/null
-  c sudo rpm-ostree install terra-release
-fi
-
-if ! command -v zed &>/dev/null; then
-  log_task "Installing zed"
-  c sudo rpm-ostree install zed
-fi
-
-if ! [ -f /etc/yum.repos.d/ghostty.repo ]; then
+if ! [ -f /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:pgdev:ghostty.repo ]; then
   log_task "Adding ghostty repo"
-  c curl -fsSL https://copr.fedorainfracloud.org/coprs/pgdev/ghostty/repo/fedora-rawhide/pgdev-ghostty-fedora-rawhide.repo | sudo tee /etc/yum.repos.d/ghostty.repo > /dev/null
+  c sudo tee /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:pgdev:ghostty.repo > /dev/null <<EOF
+[copr:copr.fedorainfracloud.org:pgdev:ghostty]
+name=Copr repo for Ghostty owned by pgdev
+baseurl=https://download.copr.fedorainfracloud.org/results/pgdev/ghostty/fedora-$releasever-$basearch/
+type=rpm-md
+skip_if_unavailable=True
+gpgcheck=1
+gpgkey=https://download.copr.fedorainfracloud.org/results/pgdev/ghostty/pubkey.gpg
+repo_gpgcheck=0
+enabled=1
+enabled_metadata=1
+EOF
 fi
 
 if ! command -v ghostty &>/dev/null; then
