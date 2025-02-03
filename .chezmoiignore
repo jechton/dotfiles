@@ -5,7 +5,6 @@ LICENSE
 gitignore
 
 {{ if eq .chezmoi.os "android" }}
-.config/fish/custom_functions.d/note.fish
 .local/bin
 {{ end }}
 
@@ -14,13 +13,14 @@ gitignore
 {{ end }}
 
 {{ if not .blue }}
+.config/fish/custom_functions.d/note.fish
 .config/autostart
 .config/no-show-user-motd
 .local/share/{applications,ice,wallpapers}
 {{ end }}
 
 {{ if .headless }}
-.config/{gh,ghostty,helix,lazygit,nvim,zed}
+.config/{astro,gh,ghostty,helix,lazygit,nvim,zed}
 {{ end }}
 
 {{ if eq .device_type "laptop" }}

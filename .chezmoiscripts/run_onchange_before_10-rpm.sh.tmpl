@@ -11,7 +11,7 @@ set -eufo pipefail
 if ! [ -f /etc/yum.repos.d/vscode.repo ]; then
   log_task "Adding VS Code repo"
 
-  c sudo tee /etc/yum.repos.d/vscode.repo > /dev/null <<EOF
+  c sudo tee /etc/yum.repos.d/vscode.repo >/dev/null <<EOF
 [code]
 name=Visual Studio Code
 baseurl=https://packages.microsoft.com/yumrepos/vscode
@@ -29,10 +29,10 @@ fi
 
 if ! [ -f /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:pgdev:ghostty.repo ]; then
   log_task "Adding ghostty repo"
-  c sudo tee /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:pgdev:ghostty.repo > /dev/null <<EOF
+  c sudo tee /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:pgdev:ghostty.repo >/dev/null <<EOF
 [copr:copr.fedorainfracloud.org:pgdev:ghostty]
 name=Copr repo for Ghostty owned by pgdev
-baseurl=https://download.copr.fedorainfracloud.org/results/pgdev/ghostty/fedora-$releasever-$basearch/
+baseurl=https://download.copr.fedorainfracloud.org/results/pgdev/ghostty/fedora-\$releasever-\$basearch/
 type=rpm-md
 skip_if_unavailable=True
 gpgcheck=1
