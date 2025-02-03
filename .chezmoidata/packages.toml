@@ -1,12 +1,12 @@
 [packages]
 apt = [
-    "bat",
-    "build-essential", # for rust to build
-    "cmake",           # for rust to build
-    "fzf",
-    "ripgrep",
-    "ugrep",
-    "zoxide",
+  "bat",
+  "build-essential", # for rust to build
+  "cmake",           # for rust to build
+  "fzf",
+  "ripgrep",
+  "ugrep",
+  "zoxide",
 ]
 
 brew = [
@@ -43,42 +43,42 @@ brew = [
 cargo = ["difftastic", "eza", "fd-find", "sd", "starship", "tealdeer"]
 
 flatpak = [
-    "org.bleachbit.BleachBit",
-    "org.blender.Blender",
-    "com.usebottles.bottles",
-    "page.kramo.Cartridges",
-    "com.tomjwatson.Emote",
-    "org.localsend.localsend_app",
-    "md.obsidian.Obsidian",
-    "org.telegram.desktop",
-    "app.zen_browser.zen",
+  "org.bleachbit.BleachBit",
+  "org.blender.Blender",
+  "com.usebottles.bottles",
+  "page.kramo.Cartridges",
+  "com.tomjwatson.Emote",
+  "org.localsend.localsend_app",
+  "md.obsidian.Obsidian",
+  "org.telegram.desktop",
+  "app.zen_browser.zen",
 ]
 
 go = ["github.com/Achno/gowall@latest"]
 
 node = [
-    "bash-language-server",
-    "dockerfile-language-server-nodejs",
-    "markdown-lint",
-    "marksman",
-    "pyright",
+  "bash-language-server",
+  "dockerfile-language-server-nodejs",
+  "markdown-lint",
+  "marksman",
+  "pyright",
 ]
 
-pi = ["cmake"]
+pi = ["bat", "cmake", "fzf", "ripgrep", "ugrep", "zoxide"]
 
 python = ["basedpyright", "ruff"]
 
 termux = [
-    "bat",
-    "eza",
-    "fd",
-    "fzf",
-    "gh",
-    "lazygit",
-    "neovim",
-    "ripgrep",
-    "tealdeer",
-    "ugrep",
-    "yq",
-    "zoxide",
+  "bat",
+  "eza",
+  "fd",
+  "fzf",
+  "gh",
+  "lazygit",
+  "neovim",
+  "ripgrep",
+  "tealdeer",
+  "ugrep",
+  "yq",
+  "zoxide",
 ]
