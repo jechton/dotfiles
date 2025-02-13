@@ -1,0 +1,139 @@
+{
+  "active_pane_modifiers": {
+    "inactive_opacity": 0.6,
+  },
+  "always_treat_brackets_as_autoclosed": true,
+  "assistant": {
+    "default_model": {
+      "model": "claude-3-5-sonnet-latest",
+      "provider": "zed.dev",
+    },
+    "enable_experimental_live_diffs": true,
+    "version": "2",
+  },
+  "auto_install_extensions": {
+    "basedpyright": true,
+    "basher": true,
+    "csv": true,
+    "docker-compose": true,
+    "dockerfile": true,
+    "env": true,
+    "fish": true,
+    "git-firefly": true,
+    "html": true,
+    "justfile": true,
+    "markdown-oxide": true,
+    "ruff": true,
+    "sql": true,
+    "svelte": true,
+    "toml": true,
+  },
+  "buffer_font_family": "{{- .font.mono -}}",
+  "buffer_font_size": 16,
+  "centered_layout": {
+    "left_padding": 0.15,
+    "right_padding": 0.15,
+  },
+  "features": {
+    "inline_completion_provider": "none",
+  },
+  "file_finder": {
+    "modal_max_width": "medium",
+  },
+  "file_types": {
+    "Bash": ["*.sh.tmpl"],
+    "Fish": ["*.fish.tmpl"],
+    "JSONC": ["*.json.tmpl"],
+  },
+  "git": {
+    "inline_blame": {
+      "enabled": false,
+    },
+  },
+  "indent_guides": {
+    "coloring": "indent_aware",
+  },
+  "inlay_hints": {
+    "enabled": true,
+  },
+  "languages": {
+    "JavaScript": {
+      "code_actions_on_format": {
+        "source.fixAll.eslint": true,
+      },
+    },
+    "Python": {
+      "format_on_save": "on",
+      "formatter": [
+        {
+          "code_actions": {
+            "source.fixAll.ruff": true,
+            "source.organizeImports.ruff": true,
+          },
+        },
+        {
+          "language_server": {
+            "name": "ruff",
+          },
+        },
+      ],
+      "language_servers": ["basedpyright", "ruff", "!pyright"],
+    },
+  },
+  "lsp": {
+    "basedpyright": {
+      "settings": {
+        "basedpyright.analysis": {
+          "autoImportCompletions": true,
+          "autoSearchPaths": true,
+          "useLibraryCodeForTypes": true,
+          "typeCheckingMode": "standard",
+        },
+        "python": {
+          "pythonPath": ".venv/bin/python",
+        },
+      },
+    },
+  },
+  "project_panel": {
+    "dock": "right",
+    "folder_icons": false,
+    "indent_size": 10,
+  },
+  "soft_wrap": "editor_width",
+  "tab_bar": {
+    "show_nav_history_buttons": false,
+  },
+  "tabs": {
+    "activate_on_close": "neighbour",
+    "file_icons": true,
+    "git_status": true,
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false,
+  },
+  "terminal": {
+    "cursor_shape": "bar",
+    "detect_venv": {
+      "on": {
+        "directories": [".venv", "venv"],
+        "activate_script": "fish",
+      },
+    },
+    "env": {
+      "EDITOR": "zed --wait",
+      "VISUAL": "zed --wait",
+      "GIT_EDITOR": "zed --wait",
+    },
+    "line_height": "standard",
+  },
+  "theme": {
+    "dark": "Gruvbox Dark",
+    "light": "Gruvbox Light",
+    "mode": "system",
+  },
+  "ui_font_family": "{{- .font.sans -}}",
+  "ui_font_size": 16,
+  "use_smartcase_search": true,
+}

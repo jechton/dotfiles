@@ -17,6 +17,7 @@ gitignore
 .config/autostart
 .config/no-show-user-motd
 .local/share/{applications,ice,wallpapers}
+.var
 {{ end }}
 
 {{ if .headless }}
