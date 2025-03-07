@@ -50,6 +50,7 @@ flatpak = [
   "com.tomjwatson.Emote",
   "org.localsend.localsend_app",
   "md.obsidian.Obsidian",
+  "org.signal.Signal",
   "org.telegram.desktop",
   "app.zen_browser.zen",
 ]
