@@ -31,6 +31,15 @@
     exact = true
     refreshPeriod = "168h"
     include = ["ttf/CascadiaCodeNF*"]
+{{-   range (list
+      "atkinson-hyperlegible-next") }}
+[".local/share/fonts/{{ . }}"]
+type = "archive"
+url = "https://github.com/googlefonts/{{ . }}/archive/refs/heads/main.zip"
+exact = true
+stripcomponents = 3
+include = ["*/fonts/ttf/*"]
+{{-   end }}
 {{- end}}
 
 {{ if eq .chezmoi.os "android" -}}
