@@ -3,10 +3,15 @@ for file in $__fish_config_dir/custom.d/*.fish
     source $file
 end
 
+# pnpm
 set -gx PNPM_HOME "{{ .chezmoi.homeDir }}/.local/share/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
 
 if status is-interactive
     if command -q starship
