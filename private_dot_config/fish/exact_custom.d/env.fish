@@ -25,3 +25,4 @@ set -gx RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/ripgreprc"
 
 set -U nvm_default_version latest
 set -Ux NODE_OPTIONS "--disable-warning=ExperimentalWarning"
+set -Ux COREPACK_ENABLE_AUTO_PIN 0
