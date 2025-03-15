@@ -3,12 +3,11 @@ gui:
   scrollPastBottom: false
   nerdFontsVersion: "3"
   commitHashLength: 0
-  showIcons: true
 git:
   parseEmoji: true
   overrideGpg: true
   paging:
-    externalDiffCommand: difft --color=always --display=inline
+    externalDiffCommand: "difft --color=always --display=inline"
 customCommands:
   - key: "<c-p>"
     command: "git remote prune {{.SelectedRemote.Name}}"
