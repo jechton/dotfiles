@@ -71,8 +71,11 @@ certificate=$(echo "$key_cert" | awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/')
 
 # Create the OpenVPN configuration file
 cat >"$OVPN_CONF" <<EOL
-client
+pull-filter ignore "tun-ipv6"
+pull-filter ignore "route-ipv6"
+pull-filter ignore "ifconfig-ipv6"
 
+client
 dev tun
 proto tcp
 
@@ -80,19 +83,12 @@ proto tcp
 ${REMOTE_RANDOM:+remote-random}
 
 nobind
-
 remote-cert-tls server
-
-pull-filter ignore "tun-ipv6"
-pull-filter ignore "route-ipv6"
-pull-filter ignore "ifconfig-ipv6"
-block-ipv6
-
 cipher AES-256-GCM
 data-ciphers AES-256-GCM
 keepalive 10 30
-
 verb 3
+block-ipv6
 
 <ca>
 $ca
