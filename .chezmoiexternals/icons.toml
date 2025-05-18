@@ -19,11 +19,4 @@ refreshPeriod = "168h"
 url = "https://github.com/somepaulo/morewaita"
 type = "git-repo"
 refreshPeriod = "168h"
-
-[".local/share/icons"]
-type = "archive"
-url = "https://github.com/dpejoh/Adwaita-colors/archive/refs/tags/{{ (gitHubLatestRelease "dpejoh/Adwaita-colors").TagName}}.zip"
-stripComponents = 1
-refreshPeriod = "168h"
-include = ["*/Adwaita-*/**"]
 {{- end}}
