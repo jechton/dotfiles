@@ -1,0 +1,12 @@
+[Container]
+ContainerName=foldingathome
+Image=lscr.io/linuxserver/foldingathome:latest
+PublishPort=7396:7396
+Environment=TZ=US/Eastern ACCOUNT_TOKEN={{ (bitwarden "item" "Folding @ Home").notes }} MACHINE_NAME={{ .chezmoi.hostname }}
+Volume=./foldingathome:/config:Z
+
+[Service]
+Restart=unless-stopped
+
+[Install]
+WantedBy=default.target
