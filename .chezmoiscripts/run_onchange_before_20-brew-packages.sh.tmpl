@@ -10,7 +10,7 @@ set -eufo pipefail
 
 log_task "Installing homebrew packages"
 
-c brew bundle --no-lock --file=/dev/stdin <<EOF
+c brew bundle --file=/dev/stdin <<EOF
 {{ range .packages.brew -}}
 brew {{ . | quote }}
 {{ end -}}
