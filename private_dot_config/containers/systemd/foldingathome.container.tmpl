@@ -6,7 +6,7 @@ Environment=TZ=US/Eastern ACCOUNT_TOKEN={{ (bitwarden "item" "Folding @ Home").n
 Volume=./foldingathome:/config:Z
 
 [Service]
-Restart=always
+Restart=unless-stopped
 
 [Install]
 WantedBy=default.target
