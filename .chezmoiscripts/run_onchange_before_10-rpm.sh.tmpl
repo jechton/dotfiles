@@ -28,6 +28,9 @@ if ! command -v code &>/dev/null; then
 fi
 
 if ! command -v ghostty &>/dev/null; then
+  log_task "Enabling Terra repo"
+  sudo sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/terra.repo
+
   log_task "Installing ghostty"
   c sudo rpm-ostree install ghostty
 fi
