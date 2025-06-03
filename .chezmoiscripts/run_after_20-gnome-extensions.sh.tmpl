@@ -23,7 +23,6 @@ function is_gnome_extension_enabled() {
 # Extensions to install and enable
 wanted_extensions=(
   AlphabeticalAppGrid@stuarthayhurst
-  auto-adwaita-colors@celiopy
   azwallpaper@azwallpaper.gitlab.com
   Bluetooth-Battery-Meter@maniacx.github.com
   clipboard-indicator@tudmotu.com
@@ -108,8 +107,6 @@ dconf_ensure /org/gnome/shell/extensions/clipboard-indicator/move-item-first "tr
 dconf_ensure /org/gnome/shell/extensions/clipboard-indicator/strip-text "true"
 dconf_ensure /org/gnome/shell/extensions/clipboard-indicator/toggle-menu "['<Shift><Super>v']"
 dconf_ensure /org/gnome/shell/extensions/clipboard-indicator/clear-on-boot "true"
-# Don't notify about Adwaita-Colors updates
-dconf_ensure /org/gnome/shell/extensions/auto-adwaita-colors/notify-about-releases "false"
 # Bluetooth Battery Meter
 dconf_ensure /org/gnome/shell/extensions/Bluetooth-Battery-Meter/enable-battery-level-text "true"
 dconf_ensure /org/gnome/shell/extensions/Bluetooth-Battery-Meter/level-indicator-type "1"
