@@ -20,7 +20,7 @@ gitignore
 {{ end }}
 
 {{ if .headless }}
-.config/{astro,gh,ghostty,helix,lazygit,nvim,zed}
+.config/{astro,gh,ghostty,lazygit,nvim,zed}
 {{ end }}
 
 {{ if eq .device_type "laptop" }}

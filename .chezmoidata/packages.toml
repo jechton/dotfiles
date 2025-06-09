@@ -22,7 +22,6 @@ brew = [
   "gh",
   "go",
   "git-interactive-rebase-tool",
-  "helix",
   "lazygit",
   "neovim",
   "rclone",
