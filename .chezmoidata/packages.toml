@@ -47,7 +47,6 @@ flatpak = [
   "org.blender.Blender",
   "com.usebottles.bottles",
   "page.kramo.Cartridges",
-  "com.tomjwatson.Emote",
   "be.alexandervanhee.gradia",
   "org.localsend.localsend_app",
   "md.obsidian.Obsidian",
