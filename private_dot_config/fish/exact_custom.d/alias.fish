@@ -24,7 +24,7 @@ end
 
 if command -q ug
     alias grep ug
-    alias egrep "ugrep -E"
+    alias egrep "ug -E"
     alias fgrep "ug -F"
     alias xzgrep "ug -z"
     alias xzegrep "ug -zE"
@@ -63,7 +63,6 @@ if command -q rg
 end
 
 alias q exit
-alias e exit
 alias c clear
 
 alias zc "cd && clear"

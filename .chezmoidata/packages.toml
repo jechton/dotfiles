@@ -33,6 +33,7 @@ brew = [
   "starship",
   "syncthing",
   "tealdeer",
+  "thefuck",
   "trash-cli",
   "ugrep",
   "uv",
