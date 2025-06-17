@@ -64,6 +64,3 @@ end
 
 alias q exit
 alias c clear
-
-alias zc "cd && clear"
-alias cdc "cd && clear"
