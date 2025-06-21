@@ -1,0 +1,9 @@
+[Unit]
+Description="Ludusavi backup timer"
+
+[Timer]
+OnCalendar=*-*-* 00:00:00
+Unit=ludusavi-backup.service
+
+[Install]
+WantedBy=timers.target
