@@ -14,7 +14,7 @@ gitignore
 
 {{ if not .blue }}
 .config/fish/custom_functions.d/note.fish
-.config/{autostart,contianers,no-show-user-motd}
+.config/{autostart,containers,no-show-user-motd,systemd}
 .local/share/{applications,ice,wallpapers}
 .var
 {{ end }}
