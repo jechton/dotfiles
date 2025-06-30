@@ -14,7 +14,6 @@ brew = [
   "bat",
   "bat-extras",
   "binutils",
-  "bitwarden-cli",
   "eza",
   "difftastic",
   "fd",
