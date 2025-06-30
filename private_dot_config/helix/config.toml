@@ -1,0 +1,27 @@
+theme = "gruvbox"
+
+[editor]
+mouse = true
+auto-save = true
+auto-format = true
+bufferline = "multiple"
+cursorline = true
+line-number = "relative"
+indent-guides.render = true
+color-modes = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.soft-wrap]
+enable = true
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[keys.normal]
+C-j = ["extend_to_line_bounds", "delete_selection", "paste_after"]
+C-k = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before"]

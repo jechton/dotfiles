@@ -21,6 +21,7 @@ brew = [
   "gh",
   "go",
   "git-interactive-rebase-tool",
+  "helix",
   "lazygit",
   "neovim",
   "rclone",
@@ -33,9 +34,11 @@ brew = [
   "syncthing",
   "tealdeer",
   "thefuck",
+  "taplo",
   "trash-cli",
   "ugrep",
   "uv",
+  "yaml-language-server",
   "yq",
   "zoxide",
 ]
@@ -60,9 +63,11 @@ go = ["github.com/Achno/gowall@latest"]
 node = [
   "bash-language-server",
   "dockerfile-language-server-nodejs",
+  "@microsoft/compose-language-service",
   "markdown-lint",
   "marksman",
   "pyright",
+  "vscode-langservers-extracted"
 ]
 
 pi = ["bat", "cmake", "fzf", "ripgrep", "ugrep", "zoxide"]
