@@ -14,6 +14,7 @@ brew = [
   "bat",
   "bat-extras",
   "binutils",
+  "chafa",
   "eza",
   "difftastic",
   "fd",
@@ -67,7 +68,7 @@ node = [
   "markdown-lint",
   "marksman",
   "pyright",
-  "vscode-langservers-extracted"
+  "vscode-langservers-extracted",
 ]
 
 pi = ["bat", "cmake", "fzf", "ripgrep", "ugrep", "zoxide"]
