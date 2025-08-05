@@ -1,6 +1,8 @@
 # Disable fish greeting
 set -g fish_greeting
 
+set -gx COLORTERM truecolor
+
 if command -qs hx
     set -gx EDITOR hx
 end
