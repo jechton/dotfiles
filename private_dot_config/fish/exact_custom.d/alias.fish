@@ -52,12 +52,12 @@ end
 if command -q trash
     alias tm trash
     alias tmls trash-list
-    alias tmgr trash-list | grep -i
+    alias tmgr "trash-list | grep -i"
     alias tmre trash-restore
 end
 
 if command -q trash && command -q du
-    alias tmdu du -sh ~/.local/share/Trash/files
+    alias tmdu "du -sh ~/.local/share/Trash/files"
 end
 
 if command -q rg
