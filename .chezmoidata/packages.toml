@@ -10,38 +10,38 @@ apt = [
 ]
 
 brew = [
-  "atuin",
-  "bat",
-  "bat-extras",
-  "binutils",
-  "chafa",
-  "eza",
-  "difftastic",
-  "fd",
-  "fzf",
-  "gh",
-  "go",
-  "git-interactive-rebase-tool",
-  "helix",
-  "lazygit",
-  "neovim",
-  "rclone",
-  "ripgrep",
-  "sd",
-  "shellcheck",
-  "shfmt",
-  "sevenzip",
-  "starship",
-  "syncthing",
-  "tealdeer",
-  "thefuck",
-  "taplo",
-  "trash-cli",
-  "ugrep",
-  "uv",
-  "yaml-language-server",
-  "yq",
-  "zoxide",
+  "atuin",                # shell history search
+  "bat",                  # colorful cat
+  "bat-extras",           # bat manpages and more
+  "binutils",             # compiler tools
+  "chafa",                # image preview in terminal
+  "eza",                  # better ls
+  "difftastic",           # diffs
+  "dust",                 # better du
+  "fd",                   # better find
+  "fzf",                  # fuzzy finder
+  "gh",                   # github cli
+  "go",                   # golang
+  "helix",                # editor
+  "lazygit",              # git tui
+  "neovim",               # editor
+  "rclone",               # manage cloud storage
+  "ripgrep",              # better grep
+  "sd",                   # better sed
+  "shellcheck",           # bash linter
+  "shfmt",                # bash formatter
+  "sevenzip",             # archiver
+  "starship",             # prompt
+  "syncthing",            # sync files
+  "tealdeer",             # tldr pages
+  "thefuck",              # command correction
+  "taplo",                # toml lsp
+  "trash-cli",            # trash manager
+  "ugrep",                # drop-in better grep for scripts
+  "uv",                   # python manager
+  "yaml-language-server", # says on the tin
+  "yq",                   # jq for yaml
+  "zoxide",               # directory jumper
 ]
 
 cargo = ["difftastic", "eza", "fd-find", "sd", "starship", "tealdeer"]
