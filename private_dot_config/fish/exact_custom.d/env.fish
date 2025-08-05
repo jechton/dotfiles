@@ -26,3 +26,8 @@ set -gx RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/ripgreprc"
 set -U nvm_default_version latest
 set -Ux NODE_OPTIONS "--disable-warning=ExperimentalWarning"
 set -Ux COREPACK_ENABLE_AUTO_PIN 0
+
+set -U fifc_editor $EDITOR
+set -U fifc_bat_opts --style=numbers
+set -U fifc_eza_opts --icons --tree
+set -U fifc_fd_opts --hidden
