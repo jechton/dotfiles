@@ -1,14 +1,4 @@
 [packages]
-apt = [
-  "bat",
-  "build-essential", # for rust to build
-  "cmake",           # for rust to build
-  "fzf",
-  "ripgrep",
-  "ugrep",
-  "zoxide",
-]
-
 brew = [
   "atuin",                # shell history search
   "bat",                  # colorful cat
@@ -47,7 +37,7 @@ brew = [
   "zoxide",               # directory jumper
 ]
 
-cargo = ["difftastic", "eza", "fd-find", "sd", "starship", "tealdeer"]
+cargo = ["difftastic", "eza", "sd", "starship", "tealdeer"]
 
 flatpak = [
   "org.bleachbit.BleachBit",
@@ -74,7 +64,7 @@ node = [
   "vscode-langservers-extracted",
 ]
 
-pi = ["bat", "cmake", "fzf", "ripgrep", "ugrep", "zoxide"]
+pi = ["bat", "cmake", "fd-find", "fzf", "ripgrep", "ugrep", "zoxide"]
 
 python = ["basedpyright", "ruff"]
 
