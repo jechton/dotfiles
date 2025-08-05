@@ -8,14 +8,16 @@ update_check = false
 ## possible values: auto, full, compact
 style = "compact"
 
+show_help = false
+
 ## enable or disable showing a preview of the selected command
 ## useful when the command is longer than the terminal width and is cut off
 show_preview = true
 
 # search bar on top
-# invert = true
+invert = true
 
-inline_height = 25
+inline_height = 5
 show_tabs = false
 enter_accept = true
 
