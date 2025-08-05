@@ -50,12 +50,14 @@ if command -q podman && ! command -q docker
 end
 
 if command -q trash
-    alias rl trash-list
-    # safe rm by default
-    alias rm trash-put
-    alias rr trash-restore
-    # real rm still easily available
-    alias remove /usr/bin/rm
+    alias tm trash
+    alias tmls trash-list
+    alias tmgr trash-list | grep -i
+    alias tmre trash-restore
+end
+
+if command -q trash && command -q du
+    alias tmdu du -sh ~/.local/share/Trash/files
 end
 
 if command -q rg
