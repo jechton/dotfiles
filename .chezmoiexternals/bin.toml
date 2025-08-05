@@ -1,11 +1,3 @@
-{{- if eq .chezmoi.os "linux" -}}
-[".local/bin/cht.sh"]
-type = "file"
-url = "https://cht.sh/:cht.sh"
-executable = true
-refreshPeriod = "168h"
-{{- end -}}
-
 {{- if eq .de "kde" -}}
 [".local/bin/chezmoi_modify_manager"]
 type = "archive-file"

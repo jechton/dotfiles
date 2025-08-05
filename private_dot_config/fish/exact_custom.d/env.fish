@@ -31,3 +31,6 @@ set -U fifc_editor $EDITOR
 set -U fifc_bat_opts --style=numbers
 set -U fifc_eza_opts --icons --tree
 set -U fifc_fd_opts --hidden
+
+set -gx CHEAT_COLORS true
+set -gx CHEAT_COLORSCHEME dark

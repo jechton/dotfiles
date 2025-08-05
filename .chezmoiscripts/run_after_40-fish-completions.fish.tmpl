@@ -21,11 +21,6 @@ if type -q gh
     gh completion -s fish >$__fish_config_dir/completions/gh.fish
 end
 
-if type -q cht.sh
-    log_c "cht.sh completion"
-    echo "complete -c cht.sh -xa '(curl -s cheat.sh/:list)'" >$__fish_config_dir/completions/cht.sh.fish
-end
-
 if type -q chezmoi_modify_manager
     log_c "chezmoi_modify_manager completion"
     chezmoi_modify_manager --bpaf-complete-style-fish >$__fish_config_dir/completions/chezmoi_modify_manager.fish
