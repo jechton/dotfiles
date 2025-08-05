@@ -26,8 +26,10 @@ brew = [
   "helix",                # editor
   "lazygit",              # git tui
   "neovim",               # editor
+  "procs",                # better ps
   "rclone",               # manage cloud storage
   "ripgrep",              # better grep
+  "s-search",             # web search from terminal
   "sd",                   # better sed
   "shellcheck",           # bash linter
   "shfmt",                # bash formatter

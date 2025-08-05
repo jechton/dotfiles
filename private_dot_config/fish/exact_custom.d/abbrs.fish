@@ -1,11 +1,20 @@
-# git
 if command -qs git
     abbr g git
 end
 
-# hx
+if command -qs brew
+    abbr b brew
+end
+
+if command -qs procs
+    abbr ps procs
+end
+
+# editors
 if command -qs hx
     abbr v hx
+else if command -qs nvim
+    abbr v nvim
 end
 
 # chezmoi

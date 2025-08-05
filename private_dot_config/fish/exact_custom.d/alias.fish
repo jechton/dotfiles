@@ -1,7 +1,7 @@
 alias ls "eza --sort=type"
 alias l "eza -l --git --sort=type"
 alias ll "eza -lag --git --sort=type --total-size --smart-group --octal-permissions"
-alias tree "eza --tree"
+alias tree "eza --tree -L 2 --group-directories-first"
 
 if command -q batcat
     alias bat batcat
@@ -62,6 +62,10 @@ end
 
 if command -q rg
     alias rgf "rg --files | rg"
+end
+
+if command -q s
+    alias s 's --provider "duckduckgo"'
 end
 
 alias q exit
