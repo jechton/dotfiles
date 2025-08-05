@@ -14,7 +14,7 @@ if command -qs chezmoi
     abbr cu 'chezmoi update'
     abbr ce 'chezmoi edit'
     abbr cs 'chezmoi status'
-    abbr cc 'cd $(chezmoi source-path)'
+    abbr csp 'cd $(chezmoi source-path)'
 end
 
 # basic abbreviations
