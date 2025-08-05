@@ -49,6 +49,10 @@
   format = ssh
 
 [diff]
+  algorithm = "histogram"
+  colorMoved = "plain"
+  mnemonicPrefix = "true"
+  renames = "true"
   external = difft
 
 [help]
@@ -83,6 +87,7 @@
   autoStash = true
   autoSquash = true
   updateRefs = true
+  abbreviateCommands = true
   missingCommitsCheck = error
 
 [rerere]
