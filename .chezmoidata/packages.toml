@@ -15,6 +15,7 @@ brew = [
   "bat-extras",           # bat manpages and more
   "binutils",             # compiler tools
   "chafa",                # image preview in terminal
+  "cheat",                # cheat sheets
   "eza",                  # better ls
   "difftastic",           # diffs
   "dust",                 # better du
