@@ -31,7 +31,17 @@ if ! command -v ghostty &>/dev/null; then
   log_task "Enabling Terra repo"
   sudo sed -i 's@enabled=0@enabled=1@g' /etc/yum.repos.d/terra.repo
 
-  log_task "Installing ghostty"
+  log_task "Installing Ghostty"
   c sudo rpm-ostree install ghostty
+fi
+
+if ! [ -f /etc/yum.repos.d/_copr_sneexy-zen-browser.repo ]; then
+  log_task "Adding Zen Browser repo"
+  sudo wget "https://copr.fedorainfracloud.org/coprs/sneexy/zen-browser/repo/fedora-$(rpm -E %fedora)/sneexy-zen-browsder-fedora-$(rpm -E %fedora).repo" -O "/etc/yum.repos.d/_copr_sneexy-zen-browser.repo"
+fi
+
+if ! command -v zen-browser &>/dev/null; then
+  log_task "Installing Zen"
+  c sudo rpm-ostree install zen-browser
 fi
 # {{- end -}}
