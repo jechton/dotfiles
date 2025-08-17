@@ -60,10 +60,6 @@ if command -q trash && command -q du
     alias tmdu "du -sh ~/.local/share/Trash/files"
 end
 
-if command -q rg
-    alias rgf "rg --files | rg"
-end
-
 if command -q s
     alias s 's --provider "duckduckgo"'
 end
