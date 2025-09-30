@@ -10,18 +10,12 @@
   signingkey = ~/.ssh/id_ed25519.pub
 {{- end }}
 
-[includeIf "gitdir:~/.local/share/chezmoi"]
-  path = config-github
-
-[includeIf "gitdir:~/Projects/GitHub/"]
+[include]
   path = config-github
 
 {{ if not .headless -}}
 [url "ssh://git@github.com"]
   insteadOf = https://github.com
-
-[url "ssh://git@git.gay"]
-  insteadOf = https://git.gay
 {{- end }}
 
 {{$ghPath := lookPath "gh" -}}
