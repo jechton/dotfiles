@@ -1,155 +1,215 @@
 #!/usr/bin/env bash
-
 set -eu
 
-# Default configuration file name
-DEFAULT_OVPN_CONF="riseup-ovpn.conf"
-# Parse command-line arguments
-OVPN_CONF=$DEFAULT_OVPN_CONF
-VERBOSE=
-NO_COMMENTS=
-SILENT=1
-TOP_GATEWAYS=5
-REMOTE_RANDOM=1
-# Function to display help message
+# Configuration
+OUTPUT_FILE="riseup-ovpn.conf"
+BLACKLIST_FILE="blacklist.txt"
+PING_TEST="yes"
+TOP_COUNT=5
+ADD_COMMENTS="yes"
+FASTEST_ONLY=""
+
+# Help
 show_help() {
     cat <<EOF
-Usage: $(basename "$0") [OPTIONS] [CONFIG_FILE]
-Generate OpenVPN configuration for Riseup VPN
+Generate Riseup VPN config with blacklist support
+
+Usage: $(basename "$0") [OPTIONS]
 
 Options:
-  -v, --verbose       Enable verbose output
-  -nc, --no-comments  Remove comments from the configuration
-  -t, --top N         Select the top N gateways by ping time (default: $TOP_GATEWAYS)
-  -nr, --no-random    Disable remote-random
-  -h, --help          Display this help message and exit
+  --fastest               Only use the fastest server (no random)
+  --no-ping               Skip ping test (include all servers)
+  -t, --top N             How many servers to include (default: 5)
+  -b, --blacklist FILE    Blacklist file (default: blacklist.txt)
+  --no-comments           Don't add server info as comments
+  -h, --help              Show this help
 
-If CONFIG_FILE is not specified, the default '$DEFAULT_OVPN_CONF' will be used.
+Examples:
+  $(basename "$0")                    # Use 5 fastest servers (default)
+  $(basename "$0") --fastest          # Use only the fastest server
+  $(basename "$0") -t 3               # Use 3 fastest servers
+  $(basename "$0") --no-ping          # Include all servers (no ping test)
+  $(basename "$0") -b bad-ips.txt     # Use custom blacklist
+
+Blacklist format (one IP per line):
+  198.252.153.226
+  # This is a comment
+  198.252.153.98
+
 EOF
 }
 
+# Parse Arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
-    -v | --verbose)
-        VERBOSE=1
-        SILENT=
-        set -x
-        shift
-        ;;
-    -nc | --no-comments)
-        NO_COMMENTS=1
-        shift
-        ;;
-    -t | --top)
-        TOP_GATEWAYS=$2
-        shift 2
-        ;;
-    -nr | --no-random)
-        REMOTE_RANDOM=
-        shift
-        ;;
-    -h | --help)
-        show_help
-        exit 0
-        ;;
-    *)
-        OVPN_CONF=$1
-        shift
-        ;;
+        --fastest) FASTEST_ONLY="yes"; TOP_COUNT=1; shift ;;
+        --no-ping) PING_TEST=""; shift ;;
+        -t|--top) TOP_COUNT=$2; shift 2 ;;
+        -b|--blacklist) BLACKLIST_FILE=$2; shift 2 ;;
+        --no-comments) ADD_COMMENTS=""; shift ;;
+        -h|--help) show_help; exit 0 ;;
+        *) echo "Unknown option: $1"; show_help; exit 1 ;;
     esac
 done
 
-echo -e "\e[36mPlease wait, riseup API can be very slow...\e[0m"
+# Check Requirements
+for cmd in curl jq; do
+    if ! command -v $cmd >/dev/null 2>&1; then
+        echo "Error: $cmd is not installed"
+        echo "Install with: apt install curl jq"
+        exit 1
+    fi
+done
 
-# Download new VPN client certs (private and public keys)
-ca=$(curl ${VERBOSE:+-v} ${SILENT:+-sS} --fail --connect-timeout 10 --retry 3 https://api.black.riseup.net/ca.crt)
-key_cert=$(curl ${VERBOSE:+-v} ${SILENT:+-sS} --fail --connect-timeout 10 --retry 3 https://api.black.riseup.net/3/cert)
+if [ -n "$PING_TEST" ] && ! command -v ping >/dev/null 2>&1; then
+    echo "Error: ping is not installed (needed for --ping)"
+    exit 1
+fi
 
-# Split the key and certificate
-private_key=$(echo "$key_cert" | awk '/BEGIN RSA PRIVATE KEY/,/END RSA PRIVATE KEY/')
-certificate=$(echo "$key_cert" | awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/')
+# Load Blacklist
+declare -a BLACKLIST
+if [[ -f "$BLACKLIST_FILE" ]]; then
+    echo "Loading blacklist from $BLACKLIST_FILE"
+    while read -r ip; do
+        # Skip empty lines and comments
+        [[ -z "$ip" || "$ip" =~ ^# ]] && continue
+        BLACKLIST+=("$ip")
+    done < "$BLACKLIST_FILE"
+    echo "Blacklisted ${#BLACKLIST[@]} IP(s)"
+fi
 
-# Create the OpenVPN configuration file
-cat >"$OVPN_CONF" <<EOL
-pull-filter ignore "tun-ipv6"
-pull-filter ignore "route-ipv6"
-pull-filter ignore "ifconfig-ipv6"
+# Download Certificates
+echo "Downloading certificates..."
+CA=$(curl -sS --fail https://api.black.riseup.net/ca.crt)
+KEY_CERT=$(curl -sS --fail https://api.black.riseup.net/3/cert)
+
+# Extract key and certificate
+KEY=$(echo "$KEY_CERT" | awk '/BEGIN RSA PRIVATE KEY/,/END RSA PRIVATE KEY/')
+CERT=$(echo "$KEY_CERT" | awk '/BEGIN CERTIFICATE/,/END CERTIFICATE/')
+
+# Download Server List
+echo "Downloading server list..."
+SERVERS=$(curl -sS --fail https://api.black.riseup.net/3/config/eip-service.json)
+
+# Process Servers
+declare -a SERVER_LIST
+
+echo "Processing servers..."
+for server_b64 in $(echo "$SERVERS" | jq -r '.gateways[] | @base64'); do
+    server=$(echo "$server_b64" | base64 -d)
+
+    IP=$(echo "$server" | jq -r '.ip_address')
+    HOST=$(echo "$server" | jq -r '.host')
+    LOCATION=$(echo "$server" | jq -r '.location')
+
+    # Check blacklist
+    skip=0
+    for blacklisted_ip in "${BLACKLIST[@]}"; do
+        if [[ "$IP" == "$blacklisted_ip" ]]; then
+            echo "Skipping blacklisted: $IP"
+            skip=1
+            break
+        fi
+    done
+    [[ $skip -eq 1 ]] && continue
+
+    # Add to list
+    SERVER_LIST+=("$IP|$HOST|$LOCATION")
+done
+
+# Ping Test (Default behavior)
+if [ -n "$PING_TEST" ]; then
+    echo "Pinging servers to find fastest ones (this takes a minute)..."
+    declare -a PING_RESULTS
+
+    for entry in "${SERVER_LIST[@]}"; do
+        IFS='|' read -r IP HOST LOCATION <<< "$entry"
+
+        # Ping and get average time
+        AVG=$(ping -c 3 -W 2 "$IP" 2>/dev/null | tail -1 | awk '{print $4}' | cut -d'/' -f2)
+
+        if [ -n "$AVG" ]; then
+            PING_RESULTS+=("$AVG|$IP|$HOST|$LOCATION")
+            echo "  $IP ($LOCATION): ${AVG}ms"
+        fi
+    done
+
+    # Sort by ping time and take top N
+    SERVER_LIST=()
+    while IFS='|' read -r AVG IP HOST LOCATION; do
+        SERVER_LIST+=("$IP|$HOST|$LOCATION|${AVG}ms")
+    done < <(printf '%s\n' "${PING_RESULTS[@]}" | sort -t'|' -k1 -n | head -n "$TOP_COUNT")
+fi
+
+# Generate Config File
+echo "Generating config file: $OUTPUT_FILE"
+
+cat > "$OUTPUT_FILE" <<EOF
+# Riseup VPN OpenVPN Configuration
+# Generated: $(date)
 
 client
 dev tun
 proto tcp
-
-# remote entries will be added here
-${REMOTE_RANDOM:+remote-random}
-
+$([ -z "$FASTEST_ONLY" ] && echo "remote-random")
 nobind
+
+# Security
 remote-cert-tls server
+auth-nocache
 cipher AES-256-GCM
 data-ciphers AES-256-GCM
+
+# Connection
 keepalive 10 30
 verb 3
+
+# IPv6 disabled
+pull-filter ignore "tun-ipv6"
+pull-filter ignore "route-ipv6"
+pull-filter ignore "ifconfig-ipv6"
 block-ipv6
 
-<ca>
-$ca
-</ca>
+# Servers
+EOF
 
-<key>
-$private_key
-</key>
+# Add server entries
+for entry in "${SERVER_LIST[@]}"; do
+    IFS='|' read -r IP HOST LOCATION PING <<< "$entry"
 
-<cert>
-$certificate
-</cert>
-EOL
-
-# Get the VPN IP list, and add them to openvpn conf
-gateways=$(curl ${VERBOSE:+-v} ${SILENT:+-sS} --fail --connect-timeout 10 --retry 3 https://api.black.riseup.net/3/config/eip-service.json | jq '.gateways')
-
-# Array to store ping results
-declare -A ping_results
-
-echo -e "\e[33mPinging gateways...\e[0m"
-for gateway_b64 in $(echo "$gateways" | jq -r '.[] | @base64'); do
-    gateway=$(echo "$gateway_b64" | base64 --decode)
-    ip_address=$(echo "$gateway" | jq -r '.ip_address')
-    host=$(echo "$gateway" | jq -r '.host')
-    location=$(echo "$gateway" | jq -r '.location')
-
-    # Ping the IP address and get the average time
-    ping_time=$(ping -c 3 "$ip_address" 2>/dev/null | tail -1 | awk '{print $4}' | cut -d '/' -f 2)
-
-    if [ -n "$ping_time" ]; then
-        ping_results["$ip_address"]="$ping_time|$host|$location"
-        echo -e "\e[32mPing time for $ip_address ($host, $location): ${ping_time}ms\e[0m"
+    if [ -n "$ADD_COMMENTS" ]; then
+        echo "remote $IP 53 # $HOST ($LOCATION)${PING:+ - $PING}" >> "$OUTPUT_FILE"
+    else
+        echo "remote $IP 53" >> "$OUTPUT_FILE"
     fi
 done
 
-echo -e "\e[33mSorting gateways by ping time...\e[0m"
-top_gateways=$(for ip in "${!ping_results[@]}"; do
-    echo "${ping_results[$ip]}|$ip"
-done | sort -n | head -n "$((REMOTE_RANDOM ? TOP_GATEWAYS : 1))" | awk -F'|' '{print $4 "|" $2 "|" $3 "|" $1}')
+# Add certificates
+cat >> "$OUTPUT_FILE" <<EOF
 
-echo -e "\e[33mAdding top $TOP_GATEWAYS gateway(s) to OpenVPN config...\e[0m"
-remote_entries=""
-while IFS='|' read -r ip_address host location ping_time; do
-    if [ -n "${NO_COMMENTS-}" ]; then
-        remote_entries="${remote_entries}remote $ip_address 53"$'\n'
-    else
-        remote_entries="${remote_entries}remote $ip_address 53 # $host ($location) measured ping at ${ping_time}ms"$'\n'
-    fi
-done <<<"$top_gateways"
+# Certificates
+<ca>
+$CA
+</ca>
 
-# Insert remote entries into the configuration file
-sed -i "/# remote entries will be added here/r /dev/stdin" "$OVPN_CONF" <<EOF
-$remote_entries
+<key>
+$KEY
+</key>
+
+<cert>
+$CERT
+</cert>
 EOF
-sed -i '/# remote entries will be added here/d' "$OVPN_CONF"
 
-echo -e "\e[32m[✓] OpenVPN configuration file successfully created: $OVPN_CONF\e[0m"
-echo -e "\e[34mTo import the configuration:\e[0m"
-echo -e "\e[34m1. Using NetworkManager CLI:\e[0m"
-echo -e "\e[34m   nmcli connection import type openvpn file $OVPN_CONF\e[0m"
-echo -e "\e[34m2. Using OpenVPN directly:\e[0m"
-echo -e "\e[34m   sudo openvpn --config $OVPN_CONF\e[0m"
-echo -e "\e[33mNote: Ensure you have the necessary permissions to use VPN connections.\e[0m"
+# Done
+echo ""
+echo "✓ Config created: $OUTPUT_FILE"
+echo "✓ Added ${#SERVER_LIST[@]} server(s)"
+echo ""
+echo "Usage:"
+echo "  OpenVPN:  sudo openvpn --config $OUTPUT_FILE"
+echo ""
+echo "  Gluetun:  VPN_SERVICE_PROVIDER=custom"
+echo "            VPN_TYPE=openvpn"
+echo "            OPENVPN_CUSTOM_CONFIG=/gluetun/$OUTPUT_FILE"
+echo ""
