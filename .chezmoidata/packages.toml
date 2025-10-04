@@ -51,8 +51,6 @@ flatpak = [
   "org.telegram.desktop",
 ]
 
-go = ["github.com/Achno/gowall@latest"]
-
 node = [
   "bash-language-server",
   "dockerfile-language-server-nodejs",
