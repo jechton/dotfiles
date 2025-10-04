@@ -26,14 +26,16 @@ if type -q chezmoi_modify_manager
     chezmoi_modify_manager --bpaf-complete-style-fish >$__fish_config_dir/completions/chezmoi_modify_manager.fish
 end
 
-if type -q gowall
-    log_c "gowall completion"
-    gowall completion fish >$__fish_config_dir/completions/gowall.fish
-end
-
 # {{ if .blue -}}
 log_c "ujust completion"
 ujust --completions fish | sed 's/\bjust\b/ujust/g' | sed s/_just/_ujust/g >$__fish_config_dir/completions/ujust.fish
 # {{- end }}
 
 fish_update_completions
+
+for cmd in bat batcat
+    if type -q $cmd
+        log_task "Building $cmd cache"
+        $cmd cache --build
+    end
+end
