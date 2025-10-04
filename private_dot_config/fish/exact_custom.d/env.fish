@@ -29,12 +29,5 @@ set -U nvm_default_version latest
 set -Ux NODE_OPTIONS "--disable-warning=ExperimentalWarning"
 set -Ux COREPACK_ENABLE_AUTO_PIN 0
 
-set -U fifc_editor $EDITOR
-set -U fifc_bat_opts --style=numbers
-set -U fifc_eza_opts --icons --tree
-set -U fifc_fd_opts --hidden
-# Bind fzf completions to ctrl-x
-set -U fifc_keybinding \cx
-
 set -gx CHEAT_COLORS true
 set -gx CHEAT_COLORSCHEME dark

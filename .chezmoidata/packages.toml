@@ -1,6 +1,5 @@
 [packages]
 brew = [
-  "atuin",                # shell history search
   "bat",                  # colorful cat
   "bat-extras",           # bat manpages and more
   "binutils",             # compiler tools
@@ -29,6 +28,7 @@ brew = [
   "tealdeer",             # tldr pages
   "thefuck",              # command correction
   "taplo",                # toml lsp
+  "television",           # fuzzy finder
   "trash-cli",            # trash manager
   "ugrep",                # drop-in better grep for scripts
   "uv",                   # python manager
