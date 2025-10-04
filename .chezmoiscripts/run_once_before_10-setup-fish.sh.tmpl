@@ -16,10 +16,9 @@ if ! command -v fish &>/dev/null; then
 	fi
 fi
 
+# {{- if not .blue -}}
 if command -v fish &>/dev/null && [ "$SHELL" != "$(which fish)" ]; then
 	log_task "Making fish the default shell"
-	# {{- if .blue -}}
-	c lchsh -s fish
-	# {{- end -}}
 	c chsh -s fish "$USER"
 fi
+# {{- end -}}
